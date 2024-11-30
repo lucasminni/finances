@@ -1,0 +1,6 @@
+CREATE TABLE IF NOT EXISTS debts(
+    name VARCHAR(200),
+    description name VARCHAR(200),
+    value DOUBLE PRECISION,
+    date TIMESTAMP WITHOUT TIME ZONE
+)
