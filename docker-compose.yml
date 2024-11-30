@@ -1,36 +1,12 @@
 services:
   postgres:
-    image:  postgres:14.3-alpine
+    image: postgres:14.3-alpine
     environment:
-      POSTGRES_PASSWORD: admin
-      POSTGRES_USER: admin
-      POSTGRES_DB: financas-db
+      - POSTGRES_PASSWORD=admin
+      - POSTGRES_USER=admin
+      - POSTGRES_DB=financas-db
     ports:
-      - '5432:5432'
-    networks:
-      - app-network
-
-  migrate:
-    build: .
-    depends_on:
-      - postgres
-    environment:
-      DB_URL: "postgres://user:admin@admin:5432/financas-db?sslmode=disable"
-    networks:
-      - app-network
-    entrypoint: ["migrate", "-path", "/migrations", "-database", "$DB_URL", "up"]
-
-  app:
-    image: financas
-    build:
-      context: .
-      dockerfile: Dockerfile
-    depends_on:
-      - postgres
-    environment:
-      DB_URL: "postgres://user:admin@admin:5432/financas-db?sslmode=disable"
-    ports:
-      - "8080:8080"
+      - "5434:5432"
     networks:
       - app-network
 
