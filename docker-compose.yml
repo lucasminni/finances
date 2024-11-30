@@ -1,15 +1,12 @@
+version: '3.8'
+
 services:
   postgres:
-    image: postgres:14.3-alpine
+    image: postgres:15
+    container_name: postgres
     environment:
-      - POSTGRES_PASSWORD=admin
-      - POSTGRES_USER=admin
-      - POSTGRES_DB=financas-db
+      POSTGRES_USER: ${DB_USER}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+      POSTGRES_DB: ${DB_NAME}
     ports:
-      - "5434:5432"
-    networks:
-      - app-network
-
-networks:
-  app-network:
-    driver: bridge
+      - "5433:5432"
