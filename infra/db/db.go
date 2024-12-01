@@ -2,6 +2,7 @@ package db
 
 import (
 	"financas/internal/model/debt"
+	"financas/internal/model/income"
 	"fmt"
 	"log"
 	"os"
@@ -31,9 +32,14 @@ func ConnectDB() {
 
 	if err != nil {
 		log.Fatalf("Failed to connect to database: %v, err")
+	} else {
+		log.Println("Connected to database")
 	}
 
-	fmt.Printf("Starting AutoMigrate...")
-	db.AutoMigrate(&debt.Debt{})
+	fmt.Println("Starting AutoMigrate...")
+	db.AutoMigrate(
+		&debt.Debt{},
+		&income.Income{},
+	)
 
 }
