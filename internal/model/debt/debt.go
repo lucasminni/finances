@@ -1,10 +1,11 @@
-package income
+package debt
 
 import "time"
 
-type Income struct {
+type Debt struct {
 	Name        string
 	Description string
 	Value       float64
-	Date        time.Time
+	DueDate     time.Time
+	PaymentDate time.Time
 }
