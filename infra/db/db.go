@@ -39,7 +39,7 @@ func ConnectDB() {
 	}
 
 	fmt.Println("Starting AutoMigrate...")
-	err := db.AutoMigrate(
+	err = db.AutoMigrate(
 		&debt.Debt{},
 		&income.Income{},
 	)
