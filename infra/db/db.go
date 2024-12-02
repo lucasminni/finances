@@ -39,9 +39,15 @@ func ConnectDB() {
 	}
 
 	fmt.Println("Starting AutoMigrate...")
-	db.AutoMigrate(
+	err := db.AutoMigrate(
 		&debt.Debt{},
 		&income.Income{},
 	)
+
+	if err != nil {
+		log.Fatalf("Failed to auto migrate: %v", err)
+	} else {
+		log.Println("Migration complete!")
+	}
 
 }
