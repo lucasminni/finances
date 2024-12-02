@@ -1,6 +1,9 @@
 package router
 
-import "github.com/gin-gonic/gin"
+import (
+	"financas/internal/handlers"
+	"github.com/gin-gonic/gin"
+)
 
 func RouterInit() {
 
@@ -13,6 +16,9 @@ func RouterInit() {
 			"message": "OK",
 		})
 	})
+
+	// Rota para recuperar todos os debts
+	r.GET("/", handlers.GetDebts)
 
 	// Inicia o router na porta 8080
 	r.Run(":8080")
