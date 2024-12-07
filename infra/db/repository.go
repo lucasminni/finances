@@ -1,7 +1,7 @@
 package db
 
 import (
-	"financas/internal/model/debt"
+	"financas/internal/schemas/debt"
 	"fmt"
 )
 
@@ -15,4 +15,14 @@ func GetDebts() []debt.Debt {
 	}
 
 	return debts
+}
+
+func InsertDebt(debt debt.Debt) error {
+	result := db.Create(&debt)
+
+	if result.Error != nil {
+		return result.Error
+	}
+
+	return nil
 }
