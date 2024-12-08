@@ -17,6 +17,8 @@ func RouterInit() {
 
 	r.GET("/", handlers.GetDebts)
 	r.POST("/", handlers.InsertDebt)
+	r.DELETE("/:id", handlers.DeleteDebtById)
+	r.PUT("/", handlers.UpdateDebt)
 
 	r.Run(":8080")
 }
