@@ -12,7 +12,7 @@ import (
 	"gorm.io/gorm"
 )
 
-var db *gorm.DB
+var SQLConnector *gorm.DB
 
 func ConnectDB() {
 
@@ -30,7 +30,7 @@ func ConnectDB() {
 
 	dsn := fmt.Sprintf("host=%s user=%s password=%s dbname=%s port=%s sslmode=%s", dbHost, dbUser, dbPassword, dbName, dbPort, dbSSLMode)
 
-	db, err = gorm.Open(postgres.Open(dsn), &gorm.Config{})
+	SQLConnector, err = gorm.Open(postgres.Open(dsn), &gorm.Config{})
 
 	if err != nil {
 		log.Fatalf("Failed to connect to database: %v, err")
@@ -39,7 +39,7 @@ func ConnectDB() {
 	}
 
 	fmt.Println("Starting AutoMigrate...")
-	err = db.AutoMigrate(
+	err = SQLConnector.AutoMigrate(
 		&debt.Debt{},
 		&income.Income{},
 	)

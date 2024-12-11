@@ -1,14 +1,15 @@
-package db
+package debt
 
 import (
 	"errors"
+	"financas/infra/db"
 	"financas/internal/schemas/debt"
 	"fmt"
 	"log"
 )
 
 func InsertDebt(debt debt.Debt) error {
-	result := db.Create(&debt)
+	result := db.SQLConnector.Create(&debt)
 
 	if result.Error != nil {
 		return result.Error
@@ -19,7 +20,7 @@ func InsertDebt(debt debt.Debt) error {
 
 func GetDebts() []debt.Debt {
 	var debts []debt.Debt
-	result := db.Find(&debts)
+	result := db.SQLConnector.Find(&debts)
 
 	if result.Error != nil {
 		fmt.Println(result.Error)
@@ -31,7 +32,7 @@ func GetDebts() []debt.Debt {
 
 func GetDebtById(id string) (*debt.Debt, error) {
 	var result debt.Debt
-	query := db.First(&result, "id = ?", id)
+	query := db.SQLConnector.First(&result, "id = ?", id)
 
 	if query.Error != nil {
 		fmt.Println(query.Error)
@@ -42,7 +43,7 @@ func GetDebtById(id string) (*debt.Debt, error) {
 }
 
 func UpdateDebt(debt debt.Debt) (*debt.Debt, error) {
-	result := db.Save(&debt)
+	result := db.SQLConnector.Save(&debt)
 
 	if result.Error != nil {
 		return nil, result.Error
@@ -62,8 +63,8 @@ func UpdateDebt(debt debt.Debt) (*debt.Debt, error) {
 
 func DeleteDebtByID(id string) error {
 
-	if db.First(&debt.Debt{}, "id = ?", id).RowsAffected > 0 {
-		db.Delete(&debt.Debt{}, "id = ?", id)
+	if db.SQLConnector.First(&debt.Debt{}, "id = ?", id).RowsAffected > 0 {
+		db.SQLConnector.Delete(&debt.Debt{}, "id = ?", id)
 		log.Println("Debt id " + id + " deleted")
 		return nil
 	} else {

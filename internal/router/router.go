@@ -1,7 +1,7 @@
 package router
 
 import (
-	"financas/internal/handlers"
+	"financas/internal/handlers/debt"
 	"github.com/gin-gonic/gin"
 )
 
@@ -15,10 +15,10 @@ func RouterInit() {
 		})
 	})
 
-	r.GET("/", handlers.GetDebts)
-	r.POST("/", handlers.InsertDebt)
-	r.DELETE("/:id", handlers.DeleteDebtById)
-	r.PUT("/", handlers.UpdateDebt)
+	r.GET("/", debt.GetDebts)
+	r.POST("/", debt.InsertDebt)
+	r.DELETE("/:id", debt.DeleteDebtById)
+	r.PUT("/", debt.UpdateDebt)
 
 	r.Run(":8080")
 }
