@@ -1,4 +1,4 @@
-package router
+package routers
 
 import (
 	"financas/internal/handlers/debt"
