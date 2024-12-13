@@ -1,8 +1,8 @@
 package main
 
 import (
-	"financas/infra/db"
-	"financas/internal/routers"
+	"financas/internal/infra/db"
+	"financas/pkg/routes"
 	"fmt"
 )
 
@@ -12,6 +12,6 @@ func main() {
 	db.ConnectDB()
 
 	fmt.Println("Starting server on port 8080...")
-	routers.RouterInit()
+	routes.Start()
 
 }

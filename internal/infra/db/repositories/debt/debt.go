@@ -2,7 +2,7 @@ package debt
 
 import (
 	"errors"
-	"financas/infra/db"
+	"financas/internal/infra/db"
 	"financas/internal/schemas/debt"
 	"fmt"
 	"log"

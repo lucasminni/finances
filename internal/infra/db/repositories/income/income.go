@@ -2,7 +2,7 @@ package income
 
 import (
 	"errors"
-	"financas/infra/db"
+	"financas/internal/infra/db"
 	"financas/internal/schemas/income"
 	"fmt"
 	"log"
