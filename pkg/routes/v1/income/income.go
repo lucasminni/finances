@@ -7,9 +7,9 @@ import (
 
 func Register(r *gin.RouterGroup) {
 
-	r.GET("/income", income.GetIncomes)
-	r.POST("/income", income.InsertIncome)
-	r.DELETE("/income:id", income.DeleteIncomeById)
-	r.PUT("/income", income.UpdateIncome)
+	r.GET("/income", income.List)
+	r.POST("/income", income.Create)
+	r.DELETE("/income/:id", income.Delete)
+	r.PUT("/income", income.Update)
 
 }

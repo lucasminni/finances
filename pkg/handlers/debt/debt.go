@@ -71,6 +71,7 @@ func UpdateDebt(c *gin.Context) {
 		Value:       json.Value,
 		DueDate:     json.DueDate,
 		PaymentDate: json.PaymentDate,
+		Overdue:     json.Overdue,
 	}
 
 	updatedDebt, err := db.UpdateDebt(updateDebt)

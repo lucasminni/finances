@@ -42,25 +42,16 @@ func GetincomeById(id string) (*income.Income, error) {
 	return &result, nil
 }
 
-func UpdateIncome(income income.Income) (*income.Income, error) {
+func UpdateIncome(income income.Income) error {
 	result := db.SQLConnector.Save(&income)
 
 	if result.Error != nil {
 		log.Panic(result.Error)
-		return nil, result.Error
+		return result.Error
 	} else {
 		log.Println("income id " + income.ID.String() + " updated")
+		return nil
 	}
-
-	updatedincome, err := GetincomeById(income.ID.String())
-
-	if err != nil {
-		log.Panic(err.Error())
-		return nil, err
-	} else {
-		return updatedincome, nil
-	}
-
 }
 
 func DeleteIncomeByID(id string) error {
