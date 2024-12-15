@@ -1,12 +1,12 @@
 package routes
 
 import (
-	"financas/pkg/routes/v1"
-	financialV1 "financas/pkg/routes/v1"
+	"finances/pkg/routes/v1"
+	financialV1 "finances/pkg/routes/v1"
 	"github.com/gin-gonic/gin"
 )
 
-func Start() {
+func StartServer() {
 
 	r := gin.Default()
 

@@ -2,9 +2,8 @@ package income
 
 import (
 	"errors"
-	"financas/internal/infra/db"
-	"financas/internal/schemas/income"
-	"fmt"
+	"finances/internal/infra/db"
+	"finances/internal/schemas/income"
 	"log"
 )
 
@@ -12,6 +11,7 @@ func InsertIncome(income income.Income) error {
 	result := db.SQLConnector.Create(&income)
 
 	if result.Error != nil {
+		log.Panic(result.Error)
 		return result.Error
 	}
 
@@ -23,7 +23,7 @@ func GetIncomes() []income.Income {
 	result := db.SQLConnector.Find(&incomes)
 
 	if result.Error != nil {
-		fmt.Println(result.Error)
+		log.Panic(result.Error)
 		return nil
 	}
 
@@ -35,7 +35,7 @@ func GetincomeById(id string) (*income.Income, error) {
 	query := db.SQLConnector.First(&result, "id = ?", id)
 
 	if query.Error != nil {
-		fmt.Println(query.Error)
+		log.Panic(query.Error)
 		return nil, query.Error
 	}
 
@@ -46,6 +46,7 @@ func UpdateIncome(income income.Income) (*income.Income, error) {
 	result := db.SQLConnector.Save(&income)
 
 	if result.Error != nil {
+		log.Panic(result.Error)
 		return nil, result.Error
 	} else {
 		log.Println("income id " + income.ID.String() + " updated")
@@ -54,6 +55,7 @@ func UpdateIncome(income income.Income) (*income.Income, error) {
 	updatedincome, err := GetincomeById(income.ID.String())
 
 	if err != nil {
+		log.Panic(err.Error())
 		return nil, err
 	} else {
 		return updatedincome, nil
@@ -69,6 +71,7 @@ func DeleteIncomeByID(id string) error {
 		return nil
 	} else {
 		err := errors.New("income id " + id + " not found")
+		log.Panic(err.Error())
 		return err
 	}
 

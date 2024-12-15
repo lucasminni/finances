@@ -1,8 +1,8 @@
 package v1
 
 import (
-	debtV1 "financas/pkg/routes/v1/debt"
-	incomeV1 "financas/pkg/routes/v1/income"
+	debtV1 "finances/pkg/routes/v1/debt"
+	incomeV1 "finances/pkg/routes/v1/income"
 	"github.com/gin-gonic/gin"
 )
 

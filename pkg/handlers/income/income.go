@@ -1,8 +1,8 @@
 package income
 
 import (
-	db "financas/internal/infra/db/repositories/income"
-	"financas/internal/schemas/income"
+	db "finances/internal/infra/db/repositories/income"
+	"finances/internal/schemas/income"
 	"github.com/gin-gonic/gin"
 	uuid "github.com/satori/go.uuid"
 	"log"
@@ -16,26 +16,29 @@ func InsertIncome(c *gin.Context) {
 
 	if err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": "Binding JSON error - " + err.Error()})
-		log.Println("Binding JSON error - " + err.Error())
+		log.Panic("Binding JSON error - " + err.Error())
 	}
 
 	newIncome := income.Income{
-		ID:          uuid.NewV4(),
-		Name:        json.Name,
-		Description: json.Description,
-		Value:       json.Value,
+		ID:           uuid.NewV4(),
+		Name:         json.Name,
+		Description:  json.Description,
+		Value:        json.Value,
+		ReceivedDate: json.ReceivedDate,
 	}
 
 	err = db.InsertIncome(newIncome)
 
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{"error": "Inserting income error - " + err.Error()})
+		log.Panic("Inserting income error - " + err.Error())
 	} else {
 		c.JSON(http.StatusCreated, gin.H{
-			"incomeId":    newIncome.ID,
-			"income":      newIncome.Name,
-			"description": newIncome.Description,
-			"value":       newIncome.Value,
+			"id":           newIncome.ID,
+			"name":         newIncome.Name,
+			"description":  newIncome.Description,
+			"value":        newIncome.Value,
+			"receivedDate": newIncome.ReceivedDate,
 		})
 	}
 
@@ -56,29 +59,29 @@ func UpdateIncome(c *gin.Context) {
 
 	if err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": "Binding JSON error - " + err.Error()})
-		log.Println("Binding JSON error - " + err.Error())
+		log.Panic("Binding JSON error - " + err.Error())
 	}
 
 	updateIncome := income.Income{
-		ID:          json.ID,
-		Name:        json.Name,
-		Description: json.Description,
-		Value:       json.Value,
+		ID:           json.ID,
+		Name:         json.Name,
+		Description:  json.Description,
+		Value:        json.Value,
+		ReceivedDate: json.ReceivedDate,
 	}
-
-	log.Println(updateIncome.ID, updateIncome.Name, updateIncome.Description, updateIncome.Value)
 
 	updatedIncome, err := db.UpdateIncome(updateIncome)
 
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{"error": "Updating income error - " + err.Error()})
-		log.Println("Updating income error - " + err.Error())
+		log.Panic("Updating income error - " + err.Error())
 	} else {
-		c.JSON(http.StatusCreated, gin.H{
-			"incomeId":    updatedIncome.ID,
-			"income":      updatedIncome.Name,
-			"description": updatedIncome.Description,
-			"value":       updatedIncome.Value,
+		c.JSON(http.StatusOK, gin.H{
+			"id":           updatedIncome.ID,
+			"name":         updatedIncome.Name,
+			"description":  updatedIncome.Description,
+			"value":        updatedIncome.Value,
+			"receivedDate": updatedIncome.ReceivedDate,
 		})
 	}
 }
@@ -90,14 +93,14 @@ func DeleteIncomeById(c *gin.Context) {
 
 	if err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": "Binding param error - " + err.Error()})
-		log.Println("Binding URI error - " + err.Error())
+		log.Panic("Binding URI error - " + err.Error())
 	}
 
 	err = db.DeleteIncomeByID(uri)
 
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{"error": "Deleting income error - " + err.Error()})
-		log.Println("Deleting income error - " + err.Error())
+		log.Panic("Deleting income error - " + err.Error())
 	} else {
 		c.JSON(http.StatusNoContent, gin.H{})
 	}

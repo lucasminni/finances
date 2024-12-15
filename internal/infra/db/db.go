@@ -1,8 +1,8 @@
 package db
 
 import (
-	"financas/internal/schemas/debt"
-	"financas/internal/schemas/income"
+	"finances/internal/schemas/debt"
+	"finances/internal/schemas/income"
 	"fmt"
 	"log"
 	"os"
@@ -14,7 +14,7 @@ import (
 
 var SQLConnector *gorm.DB
 
-func ConnectDB() {
+func ConnectDatabase() {
 
 	err := godotenv.Load()
 	if err != nil {

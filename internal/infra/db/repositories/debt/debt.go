@@ -2,9 +2,8 @@ package debt
 
 import (
 	"errors"
-	"financas/internal/infra/db"
-	"financas/internal/schemas/debt"
-	"fmt"
+	"finances/internal/infra/db"
+	"finances/internal/schemas/debt"
 	"log"
 )
 
@@ -12,6 +11,7 @@ func InsertDebt(debt debt.Debt) error {
 	result := db.SQLConnector.Create(&debt)
 
 	if result.Error != nil {
+		log.Panic(result.Error)
 		return result.Error
 	}
 
@@ -23,7 +23,7 @@ func GetDebts() []debt.Debt {
 	result := db.SQLConnector.Find(&debts)
 
 	if result.Error != nil {
-		fmt.Println(result.Error)
+		log.Panic(result.Error)
 		return nil
 	}
 
@@ -35,7 +35,7 @@ func GetDebtById(id string) (*debt.Debt, error) {
 	query := db.SQLConnector.First(&result, "id = ?", id)
 
 	if query.Error != nil {
-		fmt.Println(query.Error)
+		log.Panic(query.Error)
 		return nil, query.Error
 	}
 
@@ -46,6 +46,7 @@ func UpdateDebt(debt debt.Debt) (*debt.Debt, error) {
 	result := db.SQLConnector.Save(&debt)
 
 	if result.Error != nil {
+		log.Panic(result.Error)
 		return nil, result.Error
 	} else {
 		log.Println("Debt id " + debt.ID.String() + " updated")
@@ -69,6 +70,7 @@ func DeleteDebtByID(id string) error {
 		return nil
 	} else {
 		err := errors.New("Debt id " + id + " not found")
+		log.Panic(err.Error())
 		return err
 	}
 
