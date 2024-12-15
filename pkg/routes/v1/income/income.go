@@ -1,15 +1,15 @@
 package routes
 
 import (
-	"finances/pkg/handlers/income"
+	h "finances/pkg/handlers/income"
 	"github.com/gin-gonic/gin"
 )
 
 func Register(r *gin.RouterGroup) {
 
-	r.GET("/income", income.List)
-	r.POST("/income", income.Create)
-	r.DELETE("/income/:id", income.Delete)
-	r.PUT("/income", income.Update)
+	r.GET("/income", h.List)
+	r.POST("/income", h.Create)
+	r.DELETE("/income/:id", h.Delete)
+	r.PUT("/income", h.Update)
 
 }

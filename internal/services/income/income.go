@@ -13,7 +13,7 @@ func GetIncomes() []i.Income {
 
 }
 
-func InsertIncome(income i.Income) (*i.Income, error) {
+func CreateIncome(income i.Income) (*i.Income, error) {
 
 	income.ID = uuid.NewV4()
 

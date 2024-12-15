@@ -25,7 +25,7 @@ func Create(c *gin.Context) {
 		log.Panic("Binding JSON error - " + err.Error())
 	}
 
-	income, err := s.InsertIncome(*json)
+	income, err := s.CreateIncome(*json)
 
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{"error": "Inserting income error - " + err.Error()})

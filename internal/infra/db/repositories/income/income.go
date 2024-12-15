@@ -3,11 +3,11 @@ package income
 import (
 	"errors"
 	"finances/internal/infra/db"
-	"finances/internal/schemas/income"
+	i "finances/internal/schemas/income"
 	"log"
 )
 
-func InsertIncome(income income.Income) error {
+func InsertIncome(income i.Income) error {
 	result := db.SQLConnector.Create(&income)
 
 	if result.Error != nil {
@@ -18,8 +18,8 @@ func InsertIncome(income income.Income) error {
 	return nil
 }
 
-func GetIncomes() []income.Income {
-	var incomes []income.Income
+func GetIncomes() []i.Income {
+	var incomes []i.Income
 	result := db.SQLConnector.Find(&incomes)
 
 	if result.Error != nil {
@@ -30,8 +30,8 @@ func GetIncomes() []income.Income {
 	return incomes
 }
 
-func GetincomeById(id string) (*income.Income, error) {
-	var result income.Income
+func GetincomeById(id string) (*i.Income, error) {
+	var result i.Income
 	query := db.SQLConnector.First(&result, "id = ?", id)
 
 	if query.Error != nil {
@@ -42,7 +42,7 @@ func GetincomeById(id string) (*income.Income, error) {
 	return &result, nil
 }
 
-func UpdateIncome(income income.Income) error {
+func UpdateIncome(income i.Income) error {
 	result := db.SQLConnector.Save(&income)
 
 	if result.Error != nil {
@@ -56,8 +56,8 @@ func UpdateIncome(income income.Income) error {
 
 func DeleteIncomeByID(id string) error {
 
-	if db.SQLConnector.First(&income.Income{}, "id = ?", id).RowsAffected > 0 {
-		db.SQLConnector.Delete(&income.Income{}, "id = ?", id)
+	if db.SQLConnector.First(&i.Income{}, "id = ?", id).RowsAffected > 0 {
+		db.SQLConnector.Delete(&i.Income{}, "id = ?", id)
 		log.Println("income id " + id + " deleted")
 		return nil
 	} else {

@@ -2,60 +2,21 @@ package debt
 
 import (
 	db "finances/internal/infra/db/repositories/debt"
-	"finances/internal/schemas/debt"
+	d "finances/internal/schemas/debt"
+	s "finances/internal/services/debt"
 	"github.com/gin-gonic/gin"
-	uuid "github.com/satori/go.uuid"
 	"log"
 	"net/http"
 )
 
-func InsertDebt(c *gin.Context) {
-	json := &debt.Debt{}
-
-	err := c.ShouldBindJSON(json)
-
-	if err != nil {
-		c.JSON(http.StatusBadRequest, gin.H{"error": "Binding JSON error - " + err.Error()})
-		log.Panic("Binding JSON error - " + err.Error())
-	}
-
-	newDebt := debt.Debt{
-		ID:          uuid.NewV4(),
-		Name:        json.Name,
-		Description: json.Description,
-		Value:       json.Value,
-		DueDate:     json.DueDate,
-		PaymentDate: json.PaymentDate,
-	}
-
-	err = db.InsertDebt(newDebt)
-
-	if err != nil {
-		c.JSON(http.StatusInternalServerError, gin.H{"error": "Inserting debt error - " + err.Error()})
-		log.Panic("Inserting debt error - " + err.Error())
-	} else {
-		c.JSON(http.StatusCreated, gin.H{
-			"id":          newDebt.ID,
-			"name":        newDebt.Name,
-			"description": newDebt.Description,
-			"value":       newDebt.Value,
-			"dueDate":     newDebt.DueDate,
-			"paymentDate": newDebt.PaymentDate,
-		})
-	}
-
-}
-
-func GetDebts(c *gin.Context) {
-	var debts []debt.Debt
-
-	debts = db.GetDebts()
+func List(c *gin.Context) {
+	debts := s.GetDebts()
 
 	c.JSON(http.StatusOK, gin.H{"debts": debts})
 }
 
-func UpdateDebt(c *gin.Context) {
-	json := &debt.Debt{}
+func Create(c *gin.Context) {
+	json := &d.Debt{}
 
 	err := c.ShouldBindJSON(json)
 
@@ -64,34 +25,45 @@ func UpdateDebt(c *gin.Context) {
 		log.Panic("Binding JSON error - " + err.Error())
 	}
 
-	updateDebt := debt.Debt{
-		ID:          json.ID,
-		Name:        json.Name,
-		Description: json.Description,
-		Value:       json.Value,
-		DueDate:     json.DueDate,
-		PaymentDate: json.PaymentDate,
-		Overdue:     json.Overdue,
+	debt, err := s.CreateDebt(*json)
+
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"error": "Inserting debt error - " + err.Error()})
+	} else {
+		c.JSON(http.StatusCreated, gin.H{
+			"id": debt.ID,
+		})
 	}
 
-	updatedDebt, err := db.UpdateDebt(updateDebt)
+}
+
+func Update(c *gin.Context) {
+	json := &d.Debt{}
+
+	err := c.ShouldBindJSON(json)
+
+	if err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": "Binding JSON error - " + err.Error()})
+		log.Panic("Binding JSON error - " + err.Error())
+	}
+
+	debt, err := s.UpdateDebt(*json)
 
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{"error": "Updating debt error - " + err.Error()})
-		log.Panic("Updating debt error - " + err.Error())
 	} else {
 		c.JSON(http.StatusOK, gin.H{
-			"id":          updatedDebt.ID,
-			"name":        updatedDebt.Name,
-			"description": updatedDebt.Description,
-			"value":       updatedDebt.Value,
-			"dueDate":     updateDebt.DueDate,
-			"paymentDate": updatedDebt.PaymentDate,
+			"id":          debt.ID,
+			"name":        debt.Name,
+			"description": debt.Description,
+			"value":       debt.Value,
+			"dueDate":     debt.DueDate,
+			"paymentDate": debt.PaymentDate,
 		})
 	}
 }
 
-func DeleteDebtById(c *gin.Context) {
+func Delete(c *gin.Context) {
 	uri := c.Param("id")
 
 	err := c.ShouldBindUri(uri)
