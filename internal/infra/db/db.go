@@ -38,7 +38,7 @@ func ConnectDatabase() {
 		log.Println("Connected to database!")
 	}
 
-	fmt.Println("Starting AutoMigrate...")
+	log.Println("Starting AutoMigrate...")
 	err = SQLConnector.AutoMigrate(
 		&d.Debt{},
 		&i.Income{},
