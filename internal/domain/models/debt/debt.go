@@ -3,6 +3,7 @@ package debt
 import (
 	"github.com/dromara/carbon/v2"
 	uuid "github.com/satori/go.uuid"
+	"log"
 )
 
 type Debt struct {
@@ -16,11 +17,15 @@ type Debt struct {
 	Paid        bool         `gorm:"column:paid;default:false" json:"paid"`
 }
 
-func (d Debt) PayDebt() {
+func (d *Debt) Pay() {
+
+	log.Println(d)
 	d.Paid = true
+	log.Println(d)
+
 }
 
-func (d Debt) SetOverdue() bool {
+func (d *Debt) SetOverdue() bool {
 
 	if carbon.Now().ToDateString() > d.DueDate.String() {
 		return true

@@ -99,9 +99,6 @@ func UpdateOverdueDebt(debts []d.Debt) []d.Debt {
 		updatedDebts = append(updatedDebts, debt)
 	}
 
-	log.Println(debts)
-	log.Println(updatedDebts)
-
 	return updatedDebts
 
 }

@@ -3,7 +3,6 @@ package routes
 import (
 	d "finances/internal/domain/models/debt"
 	s "finances/internal/domain/services/debt"
-	db "finances/internal/infra/db/repositories/debt"
 	"github.com/gin-gonic/gin"
 	"log"
 	"net/http"
@@ -15,16 +14,19 @@ func Register(r *gin.RouterGroup) {
 	r.POST("/debt", create)
 	r.DELETE("/debt/:id", delete)
 	r.PUT("/debt", update)
+	r.POST("/debt/payment/:id", pay)
 
 }
 
 func list(c *gin.Context) {
+
 	debts := s.GetDebts()
 
 	c.JSON(http.StatusOK, gin.H{"debts": debts})
 }
 
 func create(c *gin.Context) {
+
 	json := &d.Debt{}
 
 	err := c.ShouldBindJSON(json)
@@ -47,6 +49,7 @@ func create(c *gin.Context) {
 }
 
 func update(c *gin.Context) {
+
 	json := &d.Debt{}
 
 	err := c.ShouldBindJSON(json)
@@ -73,6 +76,7 @@ func update(c *gin.Context) {
 }
 
 func delete(c *gin.Context) {
+
 	uri := c.Param("id")
 
 	err := c.ShouldBindUri(uri)
@@ -82,13 +86,36 @@ func delete(c *gin.Context) {
 		log.Panic("Binding URI error - " + err.Error())
 	}
 
-	err = db.DeleteDebtByID(uri)
+	err = s.DeleteDebt(uri)
 
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{"error": "Deleting debt error - " + err.Error()})
 		log.Panic("Deleting debt error - " + err.Error())
 	} else {
 		c.JSON(http.StatusNoContent, gin.H{})
+	}
+
+}
+
+func pay(c *gin.Context) {
+
+	uri := c.Param("id")
+
+	err := c.ShouldBindUri(uri)
+
+	if err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": "Binding JSON error - " + err.Error()})
+		log.Panic("Binding JSON error - " + err.Error())
+	}
+
+	debt, err := s.PayDebt(uri)
+
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"error": "Paying debt error - " + err.Error()})
+		log.Panic("Paying debt error - " + err.Error())
+	} else {
+		c.JSON(http.StatusCreated, gin.H{"id": debt.ID,
+			"paid": debt.Paid})
 	}
 
 }

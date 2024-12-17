@@ -46,3 +46,34 @@ func UpdateDebt(debt d.Debt) (*d.Debt, error) {
 	return result, nil
 
 }
+
+func DeleteDebt(id string) error {
+
+	err := db.DeleteDebtByID(id)
+
+	if err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func PayDebt(id string) (*d.Debt, error) {
+
+	debt, err := db.GetDebtById(id)
+
+	if err != nil {
+		return nil, err
+	}
+
+	debt.Pay()
+
+	updatedDebt, err := UpdateDebt(*debt)
+
+	if err != nil {
+		return nil, err
+	}
+
+	return updatedDebt, nil
+
+}
