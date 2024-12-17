@@ -1,8 +1,8 @@
 package db
 
 import (
-	d "finances/internal/schemas/debt"
-	i "finances/internal/schemas/income"
+	d "finances/internal/domain/models/debt"
+	i "finances/internal/domain/models/income"
 	"fmt"
 	"log"
 	"os"

@@ -1,8 +1,8 @@
 package routes
 
 import (
-	i "finances/internal/schemas/income"
-	s "finances/internal/services/income"
+	i "finances/internal/domain/models/income"
+	s "finances/internal/domain/services/income"
 	"github.com/gin-gonic/gin"
 	"log"
 	"net/http"

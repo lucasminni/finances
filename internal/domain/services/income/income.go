@@ -1,8 +1,8 @@
 package debt
 
 import (
+	i "finances/internal/domain/models/income"
 	db "finances/internal/infra/db/repositories/income"
-	i "finances/internal/schemas/income"
 	uuid "github.com/satori/go.uuid"
 	"log"
 )

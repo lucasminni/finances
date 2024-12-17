@@ -2,8 +2,8 @@ package income
 
 import (
 	"errors"
+	i "finances/internal/domain/models/income"
 	"finances/internal/infra/db"
-	i "finances/internal/schemas/income"
 	"log"
 )
 

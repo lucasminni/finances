@@ -1,9 +1,9 @@
 package routes
 
 import (
+	d "finances/internal/domain/models/debt"
+	s "finances/internal/domain/services/debt"
 	db "finances/internal/infra/db/repositories/debt"
-	d "finances/internal/schemas/debt"
-	s "finances/internal/services/debt"
 	"github.com/gin-gonic/gin"
 	"log"
 	"net/http"
