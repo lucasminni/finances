@@ -4,6 +4,7 @@ import (
 	d "finances/internal/domain/models/debt"
 	db "finances/internal/infra/db/repositories/debt"
 	uuid "github.com/satori/go.uuid"
+	"log"
 )
 
 func GetDebts() []d.Debt {
@@ -74,6 +75,7 @@ func PayDebt(id string) (*d.Debt, error) {
 		return nil, err
 	}
 
+	log.Println("Debt ", updatedDebt.ID, "paid")
 	return updatedDebt, nil
 
 }

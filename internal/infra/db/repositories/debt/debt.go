@@ -53,7 +53,6 @@ func UpdateDebt(debt d.Debt) error {
 		log.Panic(result.Error)
 		return result.Error
 	} else {
-		log.Println("Debt id " + debt.ID.String() + " updated")
 		return nil
 	}
 
@@ -94,8 +93,7 @@ func UpdateOverdueDebt(debts []d.Debt) []d.Debt {
 
 	for _, debt := range debts {
 		debt.Overdue = debt.SetOverdue()
-		db.SQLConnector.Save(&debt)
-
+		db.SQLConnector.Model(&debt).Update("overdue", debt.Overdue)
 		updatedDebts = append(updatedDebts, debt)
 	}
 
