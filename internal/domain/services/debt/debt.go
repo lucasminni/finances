@@ -76,6 +76,20 @@ func PayDebt(id string) (*d.Debt, error) {
 	}
 
 	log.Println("Debt ", updatedDebt.ID, "paid")
+
 	return updatedDebt, nil
 
+}
+
+func GetTotalDebtValue() float64 {
+
+	var totalDebtValue float64
+
+	debts, _ := db.GetOutStandingDebts()
+
+	for _, debt := range debts {
+		totalDebtValue += debt.Value
+	}
+
+	return totalDebtValue
 }

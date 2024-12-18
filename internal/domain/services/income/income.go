@@ -57,3 +57,17 @@ func DeleteIncome(id string) error {
 
 	return nil
 }
+
+func GetTotalIncomeValue() float64 {
+
+	var totalIncomeValue float64
+
+	incomes := db.GetIncomes()
+
+	for _, income := range incomes {
+		totalIncomeValue += income.Value
+	}
+
+	return totalIncomeValue
+
+}

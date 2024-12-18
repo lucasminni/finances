@@ -20,10 +20,10 @@ func InsertIncome(income i.Income) error {
 
 func GetIncomes() []i.Income {
 	var incomes []i.Income
-	result := db.SQLConnector.Find(&incomes)
+	query := db.SQLConnector.Find(&incomes)
 
-	if result.Error != nil {
-		log.Panic(result.Error)
+	if query.Error != nil {
+		log.Panic(query.Error)
 		return nil
 	}
 

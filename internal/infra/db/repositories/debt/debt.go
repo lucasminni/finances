@@ -22,10 +22,10 @@ func InsertDebt(debt d.Debt) error {
 func GetDebts() []d.Debt {
 
 	var debts []d.Debt
-	result := db.SQLConnector.Find(&debts)
+	query := db.SQLConnector.Find(&debts)
 
-	if result.Error != nil {
-		log.Panic(result.Error)
+	if query.Error != nil {
+		log.Panic(query.Error)
 		return nil
 	}
 
