@@ -2,6 +2,7 @@ package routes
 
 import (
 	d "finances/internal/domain/models/debt"
+	sd "finances/internal/domain/schemas/debt"
 	s "finances/internal/domain/services/debt"
 	"github.com/gin-gonic/gin"
 	"log"
@@ -100,21 +101,29 @@ func delete(c *gin.Context) {
 func pay(c *gin.Context) {
 
 	uri := c.Param("id")
+	qp := &sd.QueryParam{}
 
 	err := c.ShouldBindUri(uri)
 
 	if err != nil {
-		c.JSON(http.StatusBadRequest, gin.H{"error": "Binding JSON error - " + err.Error()})
-		log.Panic("Binding JSON error - " + err.Error())
+		c.JSON(http.StatusBadRequest, gin.H{"error": "Binding URI error - " + err.Error()})
+		log.Panic("Binding URI error - " + err.Error())
 	}
 
-	debt, err := s.PayDebt(uri)
+	err = c.ShouldBind(qp)
+
+	if err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": "Binding param error - " + err.Error()})
+		log.Panic("Binding param error - " + err.Error())
+	}
+
+	debt, err := s.UpdatePaymentStatus(uri, qp.SetPaid)
 
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{"error": "Paying debt error - " + err.Error()})
 		log.Panic("Paying debt error - " + err.Error())
 	} else {
-		c.JSON(http.StatusCreated, gin.H{"id": debt.ID,
+		c.JSON(http.StatusOK, gin.H{"id": debt.ID,
 			"paid": debt.Paid})
 	}
 

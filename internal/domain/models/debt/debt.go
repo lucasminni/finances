@@ -16,10 +16,16 @@ type Debt struct {
 	Paid        bool        `gorm:"column:paid;default:false" json:"paid"`
 }
 
-func (d *Debt) Pay() {
+func (d *Debt) SetPaid() {
 
 	d.Paid = true
 	d.PaymentDate = carbon.Date{Carbon: carbon.Now()}
+
+}
+
+func (d *Debt) SetUnpaid() {
+
+	d.Paid = false
 
 }
 

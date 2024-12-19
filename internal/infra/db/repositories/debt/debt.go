@@ -100,3 +100,33 @@ func UpdateOverdueDebt(debts []d.Debt) []d.Debt {
 	return updatedDebts
 
 }
+
+func SetDebtPaid(debt d.Debt) error {
+
+	err := db.SQLConnector.Model(&debt).Update("paid", debt.Paid)
+
+	if err != nil {
+		return err.Error
+	}
+
+	return nil
+
+}
+
+func SetDebtUnpaid(debt d.Debt) error {
+
+	err := db.SQLConnector.Model(&debt).Update("paid", debt.Paid)
+
+	if err != nil {
+		return err.Error
+	}
+
+	err = db.SQLConnector.Model(&debt).Update("payment_date", nil)
+
+	if err != nil {
+		return err.Error
+	}
+
+	return nil
+
+}

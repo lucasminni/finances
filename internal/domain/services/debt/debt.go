@@ -18,7 +18,6 @@ func GetDebts() []d.Debt {
 }
 
 func CreateDebt(debt d.Debt) (*d.Debt, error) {
-
 	debt.ID = uuid.NewV4()
 	debt.Overdue = debt.SetOverdue()
 
@@ -33,7 +32,6 @@ func CreateDebt(debt d.Debt) (*d.Debt, error) {
 }
 
 func UpdateDebt(debt d.Debt) (*d.Debt, error) {
-
 	debt.Overdue = debt.SetOverdue()
 
 	err := db.UpdateDebt(debt)
@@ -59,7 +57,7 @@ func DeleteDebt(id string) error {
 	return nil
 }
 
-func PayDebt(id string) (*d.Debt, error) {
+func UpdatePaymentStatus(id string, status bool) (*d.Debt, error) {
 
 	debt, err := db.GetDebtById(id)
 
@@ -67,17 +65,34 @@ func PayDebt(id string) (*d.Debt, error) {
 		return nil, err
 	}
 
-	debt.Pay()
+	if status {
 
-	updatedDebt, err := UpdateDebt(*debt)
+		debt.SetPaid()
 
-	if err != nil {
-		return nil, err
+		err := db.SetDebtPaid(*debt)
+
+		if err != nil {
+			return nil, err
+		}
+
+		log.Println("Debt ", debt.ID, "set paid")
+
+		return debt, nil
+	} else {
+
+		debt.SetUnpaid()
+
+		err := db.SetDebtUnpaid(*debt)
+
+		if err != nil {
+			return nil, err
+		}
+
+		log.Println("Debt ", debt.ID, "set unpaid")
+
+		return debt, nil
+
 	}
-
-	log.Println("Debt ", updatedDebt.ID, "paid")
-
-	return updatedDebt, nil
 
 }
 
