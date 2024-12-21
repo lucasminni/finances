@@ -8,13 +8,10 @@ import (
 )
 
 func GetIncomes() []i.Income {
-
 	return db.GetIncomes()
-
 }
 
 func CreateIncome(income i.Income) (*i.Income, error) {
-
 	income.ID = uuid.NewV4()
 
 	err := db.InsertIncome(income)
@@ -23,13 +20,10 @@ func CreateIncome(income i.Income) (*i.Income, error) {
 		log.Panic(err.Error())
 		return nil, err
 	}
-
 	return &income, nil
-
 }
 
 func UpdateIncome(income i.Income) (*i.Income, error) {
-
 	err := db.UpdateIncome(income)
 
 	if err != nil {
@@ -54,12 +48,10 @@ func DeleteIncome(id string) error {
 		log.Panic(err.Error())
 		return err
 	}
-
 	return nil
 }
 
 func GetTotalIncomeValue() float64 {
-
 	var totalIncomeValue float64
 
 	incomes := db.GetIncomes()
@@ -69,5 +61,4 @@ func GetTotalIncomeValue() float64 {
 	}
 
 	return totalIncomeValue
-
 }

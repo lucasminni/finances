@@ -17,20 +17,16 @@ type Debt struct {
 }
 
 func (d *Debt) SetPaid() {
-
 	d.Paid = true
 	d.PaymentDate = carbon.Date{Carbon: carbon.Now()}
-
 }
 
 func (d *Debt) SetUnpaid() {
-
 	d.Paid = false
-
+	d.PaymentDate = carbon.Date{}
 }
 
 func (d *Debt) SetOverdue() bool {
-
 	if carbon.Now().ToDateString() > d.DueDate.String() {
 		return true
 	}

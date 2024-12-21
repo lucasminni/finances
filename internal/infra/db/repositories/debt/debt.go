@@ -8,7 +8,6 @@ import (
 )
 
 func InsertDebt(debt d.Debt) error {
-
 	result := db.SQLConnector.Create(&debt)
 
 	if result.Error != nil {
@@ -20,7 +19,6 @@ func InsertDebt(debt d.Debt) error {
 }
 
 func GetDebts() []d.Debt {
-
 	var debts []d.Debt
 	query := db.SQLConnector.Find(&debts)
 
@@ -33,7 +31,6 @@ func GetDebts() []d.Debt {
 }
 
 func GetDebtById(id string) (*d.Debt, error) {
-
 	var result d.Debt
 	query := db.SQLConnector.First(&result, "id = ?", id)
 
@@ -46,7 +43,6 @@ func GetDebtById(id string) (*d.Debt, error) {
 }
 
 func UpdateDebt(debt d.Debt) error {
-
 	result := db.SQLConnector.Save(&debt)
 
 	if result.Error != nil {
@@ -59,7 +55,6 @@ func UpdateDebt(debt d.Debt) error {
 }
 
 func DeleteDebtByID(id string) error {
-
 	if db.SQLConnector.First(&d.Debt{}, "id = ?", id).RowsAffected > 0 {
 		db.SQLConnector.Delete(&d.Debt{}, "id = ?", id)
 		log.Println("Debt id " + id + " deleted")
@@ -73,7 +68,6 @@ func DeleteDebtByID(id string) error {
 }
 
 func GetOutStandingDebts() ([]d.Debt, error) {
-
 	var debts []d.Debt
 
 	query := db.SQLConnector.Where("paid = ?", false).Find(&debts)
@@ -88,7 +82,6 @@ func GetOutStandingDebts() ([]d.Debt, error) {
 }
 
 func UpdateOverdueDebt(debts []d.Debt) []d.Debt {
-
 	var updatedDebts []d.Debt
 
 	for _, debt := range debts {
@@ -102,8 +95,7 @@ func UpdateOverdueDebt(debts []d.Debt) []d.Debt {
 }
 
 func SetDebtPaid(debt d.Debt) error {
-
-	err := db.SQLConnector.Model(&debt).Update("paid", debt.Paid)
+	err := db.SQLConnector.Model(&debt).Updates(map[string]interface{}{"paid": debt.Paid, "payment_date": debt.PaymentDate})
 
 	if err != nil {
 		return err.Error
@@ -114,8 +106,7 @@ func SetDebtPaid(debt d.Debt) error {
 }
 
 func SetDebtUnpaid(debt d.Debt) error {
-
-	err := db.SQLConnector.Model(&debt).Update("paid", debt.Paid)
+	err := db.SQLConnector.Model(&debt).Updates(map[string]interface{}{"paid": debt.Paid, "payment_date": nil})
 
 	if err != nil {
 		return err.Error
@@ -128,5 +119,4 @@ func SetDebtUnpaid(debt d.Debt) error {
 	}
 
 	return nil
-
 }

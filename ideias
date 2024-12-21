@@ -1,0 +1,2 @@
+- Adicionar um queryParam para trazer somente debts em overdue
+- No endpoint de balance, trazer balance líquido juntamente com o estimado

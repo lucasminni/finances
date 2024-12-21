@@ -15,7 +15,7 @@ func Register(r *gin.RouterGroup) {
 	r.POST("/debt", create)
 	r.DELETE("/debt/:id", delete)
 	r.PUT("/debt", update)
-	r.POST("/debt/payment/:id", pay)
+	r.POST("/debt/payment/", pay)
 
 }
 
@@ -100,31 +100,24 @@ func delete(c *gin.Context) {
 
 func pay(c *gin.Context) {
 
-	uri := c.Param("id")
-	qp := &sd.QueryParam{}
+	json := &sd.InputUpdatePaymentStatus{}
 
-	err := c.ShouldBindUri(uri)
+	err := c.ShouldBindJSON(json)
 
 	if err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": "Binding URI error - " + err.Error()})
 		log.Panic("Binding URI error - " + err.Error())
 	}
 
-	err = c.ShouldBind(qp)
+	debt, err := s.UpdatePaymentStatus(json.ID.String(), json.Paid)
 
 	if err != nil {
-		c.JSON(http.StatusBadRequest, gin.H{"error": "Binding param error - " + err.Error()})
-		log.Panic("Binding param error - " + err.Error())
-	}
-
-	debt, err := s.UpdatePaymentStatus(uri, qp.SetPaid)
-
-	if err != nil {
-		c.JSON(http.StatusInternalServerError, gin.H{"error": "Paying debt error - " + err.Error()})
-		log.Panic("Paying debt error - " + err.Error())
+		c.JSON(http.StatusInternalServerError, gin.H{"error": "Update debt error - " + err.Error()})
+		log.Panic("Update debt error - " + err.Error())
 	} else {
 		c.JSON(http.StatusOK, gin.H{"id": debt.ID,
-			"paid": debt.Paid})
+			"paid":        debt.Paid,
+			"paymentDate": debt.PaymentDate})
 	}
 
 }

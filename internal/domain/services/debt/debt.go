@@ -8,13 +8,11 @@ import (
 )
 
 func GetDebts() []d.Debt {
-
 	debts := db.GetDebts()
 
 	debts = db.UpdateOverdueDebt(debts)
 
 	return debts
-
 }
 
 func CreateDebt(debt d.Debt) (*d.Debt, error) {
@@ -28,7 +26,6 @@ func CreateDebt(debt d.Debt) (*d.Debt, error) {
 	}
 
 	return &debt, nil
-
 }
 
 func UpdateDebt(debt d.Debt) (*d.Debt, error) {
@@ -43,11 +40,9 @@ func UpdateDebt(debt d.Debt) (*d.Debt, error) {
 	result, err := db.GetDebtById(debt.ID.String())
 
 	return result, nil
-
 }
 
 func DeleteDebt(id string) error {
-
 	err := db.DeleteDebtByID(id)
 
 	if err != nil {
@@ -58,7 +53,6 @@ func DeleteDebt(id string) error {
 }
 
 func UpdatePaymentStatus(id string, status bool) (*d.Debt, error) {
-
 	debt, err := db.GetDebtById(id)
 
 	if err != nil {
@@ -91,9 +85,7 @@ func UpdatePaymentStatus(id string, status bool) (*d.Debt, error) {
 		log.Println("Debt ", debt.ID, "set unpaid")
 
 		return debt, nil
-
 	}
-
 }
 
 func GetTotalDebtValue() float64 {
@@ -105,6 +97,5 @@ func GetTotalDebtValue() float64 {
 	for _, debt := range debts {
 		totalDebtValue += debt.Value
 	}
-
 	return totalDebtValue
 }

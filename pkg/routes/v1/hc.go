@@ -8,5 +8,4 @@ func Check(r *gin.Engine) {
 			"message": "OK",
 		})
 	})
-
 }

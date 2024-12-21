@@ -1,5 +1,8 @@
 package debt
 
-type QueryParam struct {
-	SetPaid bool `form:"setPaid"`
+import uuid "github.com/satori/go.uuid"
+
+type InputUpdatePaymentStatus struct {
+	ID   uuid.UUID `json:"id"`
+	Paid bool      `json:"paid"`
 }

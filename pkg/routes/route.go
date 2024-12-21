@@ -7,7 +7,6 @@ import (
 )
 
 func StartServer() {
-
 	r := gin.Default()
 
 	v1.Check(r)

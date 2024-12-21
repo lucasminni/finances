@@ -9,16 +9,13 @@ import (
 )
 
 func Register(r *gin.RouterGroup) {
-
 	r.GET("/income", list)
 	r.POST("/income", create)
 	r.DELETE("/income/:id", delete)
 	r.PUT("/income", update)
-
 }
 
 func list(c *gin.Context) {
-
 	incomes := s.GetIncomes()
 
 	c.JSON(http.StatusOK, gin.H{"incomes": incomes})
@@ -43,7 +40,6 @@ func create(c *gin.Context) {
 			"id": income.ID,
 		})
 	}
-
 }
 
 func update(c *gin.Context) {
@@ -88,5 +84,4 @@ func delete(c *gin.Context) {
 	} else {
 		c.JSON(http.StatusNoContent, gin.H{})
 	}
-
 }
