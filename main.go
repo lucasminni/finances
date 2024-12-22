@@ -8,7 +8,7 @@ import (
 
 func main() {
 
-	log.Println("Staring databse connection...")
+	log.Println("Starting database connection...")
 	db.ConnectDatabase()
 
 	log.Println("Starting server on port 8080...")

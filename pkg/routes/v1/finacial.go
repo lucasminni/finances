@@ -4,6 +4,7 @@ import (
 	balanceV1 "finances/pkg/routes/v1/balance"
 	debtV1 "finances/pkg/routes/v1/debt"
 	incomeV1 "finances/pkg/routes/v1/income"
+
 	"github.com/gin-gonic/gin"
 )
 

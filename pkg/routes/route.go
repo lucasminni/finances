@@ -1,8 +1,8 @@
 package routes
 
 import (
-	"finances/pkg/routes/v1"
-	financialV1 "finances/pkg/routes/v1"
+	v1 "finances/pkg/routes/v1"
+
 	"github.com/gin-gonic/gin"
 )
 

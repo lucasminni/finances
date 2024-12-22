@@ -33,7 +33,7 @@ func ConnectDatabase() {
 	SQLConnector, err = gorm.Open(postgres.Open(dsn), &gorm.Config{})
 
 	if err != nil {
-		log.Fatalf("Failed to connect to database: %v, err")
+		log.Fatalf("Failed to connect to database: " + err.Error())
 	} else {
 		log.Println("Connected to database!")
 	}
@@ -43,6 +43,11 @@ func ConnectDatabase() {
 		&d.Debt{},
 		&i.Income{},
 	)
+
+	if os.Getenv("DEBUG") == "true" {
+		SQLConnector.Debug()
+		log.Println("Debug mode on!")
+	}
 
 	if err != nil {
 		log.Fatalf("Failed to auto migrate: %v", err)
