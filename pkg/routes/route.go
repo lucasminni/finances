@@ -1,6 +1,7 @@
 package routes
 
 import (
+	financialV1 "finances/pkg/routes/v1"
 	v1 "finances/pkg/routes/v1"
 
 	"github.com/gin-gonic/gin"
@@ -20,5 +21,6 @@ func Grouper(r *gin.Engine) {
 
 	v1 := group.Group("/v1")
 
-	financialV1.Register(v1.Group("/financials"))
+	financialV1.Register(v1.Group("/finances"))
+
 }
