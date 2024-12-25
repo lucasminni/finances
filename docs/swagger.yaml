@@ -120,7 +120,7 @@ paths:
       - application/json
       description: Creates a new debt
       parameters:
-      - description: Add debt
+      - description: Request body to add a debt
         in: body
         name: debt
         required: true
@@ -220,7 +220,7 @@ paths:
       - application/json
       description: Sets an existing debt paid/unpaid
       parameters:
-      - description: Update debt payment status
+      - description: Request body to update a debt payment status
         in: body
         name: debt
         required: true

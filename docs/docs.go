@@ -119,7 +119,7 @@ const docTemplate = `{
                 "summary": "Create a debt",
                 "parameters": [
                     {
-                        "description": "Add debt",
+                        "description": "Request body to add a debt",
                         "name": "debt",
                         "in": "body",
                         "required": true,
@@ -171,7 +171,7 @@ const docTemplate = `{
                 "summary": "Set a debt paid/unpaid",
                 "parameters": [
                     {
-                        "description": "Update debt payment status",
+                        "description": "Request body to update a debt payment status",
                         "name": "debt",
                         "in": "body",
                         "required": true,
