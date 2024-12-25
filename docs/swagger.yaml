@@ -1,0 +1,330 @@
+definitions:
+  debt.Debt:
+    properties:
+      description:
+        type: string
+      dueDate:
+        example: "2024-12-25"
+        type: string
+      id:
+        type: string
+      name:
+        type: string
+      overdue:
+        type: boolean
+      paid:
+        type: boolean
+      paymentDate:
+        example: "2024-12-25"
+        type: string
+      value:
+        type: number
+    required:
+    - description
+    - dueDate
+    - name
+    - value
+    type: object
+  debt.InputNewDebt:
+    properties:
+      description:
+        type: string
+      dueDate:
+        example: "2024-12-25"
+        type: string
+      name:
+        type: string
+      value:
+        type: number
+    required:
+    - description
+    - dueDate
+    - name
+    - value
+    type: object
+  income.Income:
+    properties:
+      description:
+        type: string
+      id:
+        type: string
+      name:
+        type: string
+      receivedDate:
+        example: "2024-12-25"
+        type: string
+      value:
+        type: number
+    required:
+    - description
+    - name
+    - receivedDate
+    - value
+    type: object
+  schemas.ErrorResponse:
+    properties:
+      error:
+        type: string
+    type: object
+info:
+  contact: {}
+paths:
+  /debt:
+    get:
+      consumes:
+      - application/json
+      description: Lists all debts
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/debt.Debt'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/schemas.ErrorResponse'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/schemas.ErrorResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/schemas.ErrorResponse'
+      summary: Show debts
+      tags:
+      - debts
+    post:
+      consumes:
+      - application/json
+      description: Creates a new debt
+      parameters:
+      - description: Add debt
+        in: body
+        name: debt
+        required: true
+        schema:
+          $ref: '#/definitions/debt.InputNewDebt'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/debt.Debt'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/schemas.ErrorResponse'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/schemas.ErrorResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/schemas.ErrorResponse'
+      summary: Create a debt
+      tags:
+      - debts
+    put:
+      consumes:
+      - application/json
+      description: Updates an existing debt
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/debt.Debt'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/schemas.ErrorResponse'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/schemas.ErrorResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/schemas.ErrorResponse'
+      summary: Update a debt
+      tags:
+      - debts
+  /debt/{id}:
+    delete:
+      consumes:
+      - application/json
+      description: Deletes an existing debt
+      parameters:
+      - description: Debt ID
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/debt.Debt'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/schemas.ErrorResponse'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/schemas.ErrorResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/schemas.ErrorResponse'
+      summary: Delete a debt
+      tags:
+      - debts
+  /debt/payment/:
+    post:
+      consumes:
+      - application/json
+      description: Sets an existing debt paid/unpaid
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/debt.Debt'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/schemas.ErrorResponse'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/schemas.ErrorResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/schemas.ErrorResponse'
+      summary: Set a debt paid/unpaid
+      tags:
+      - debts
+  /income:
+    get:
+      consumes:
+      - application/json
+      description: Lists all incomes
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/income.Income'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/schemas.ErrorResponse'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/schemas.ErrorResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/schemas.ErrorResponse'
+      summary: Show incomes
+      tags:
+      - incomes
+    post:
+      consumes:
+      - application/json
+      description: Creates a new income
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/income.Income'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/schemas.ErrorResponse'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/schemas.ErrorResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/schemas.ErrorResponse'
+      summary: Create an income
+      tags:
+      - incomes
+    put:
+      consumes:
+      - application/json
+      description: Updates an existing income
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/income.Income'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/schemas.ErrorResponse'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/schemas.ErrorResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/schemas.ErrorResponse'
+      summary: Update an income
+      tags:
+      - incomes
+  /income/{id}:
+    delete:
+      consumes:
+      - application/json
+      description: Deletes an existing income
+      parameters:
+      - description: Debt ID
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/income.Income'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/schemas.ErrorResponse'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/schemas.ErrorResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/schemas.ErrorResponse'
+      summary: Delete an income
+      tags:
+      - incomes
+swagger: "2.0"

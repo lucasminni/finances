@@ -10,8 +10,8 @@ type Debt struct {
 	Name        string      `gorm:"column:name" json:"name" binding:"required"`
 	Description string      `gorm:"column:description" json:"description" binding:"required"`
 	Value       float64     `gorm:"column:value" json:"value" binding:"required"`
-	DueDate     carbon.Date `gorm:"column:due_date;type:date" json:"dueDate" binding:"required"`
-	PaymentDate carbon.Date `gorm:"column:payment_date;type:date;default:null" json:"paymentDate"`
+	DueDate     carbon.Date `gorm:"column:due_date;type:date" json:"dueDate" binding:"required" swaggertype:"string" example:"2024-12-25"`
+	PaymentDate carbon.Date `gorm:"column:payment_date;type:date;default:null" json:"paymentDate" swaggertype:"string" example:"2024-12-25"`
 	Overdue     bool        `gorm:"column:overdue;default:null" json:"overdue"`
 	Paid        bool        `gorm:"column:paid;default:false" json:"paid"`
 }

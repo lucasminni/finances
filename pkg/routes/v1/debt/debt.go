@@ -4,30 +4,48 @@ import (
 	d "finances/internal/domain/models/debt"
 	sd "finances/internal/domain/schemas/debt"
 	s "finances/internal/domain/services/debt"
-	"github.com/gin-gonic/gin"
 	"log"
 	"net/http"
+
+	"github.com/gin-gonic/gin"
 )
 
 func Register(r *gin.RouterGroup) {
-
 	r.GET("/debt", list)
 	r.POST("/debt", create)
 	r.DELETE("/debt/:id", delete)
 	r.PUT("/debt", update)
 	r.POST("/debt/payment/", pay)
-
 }
 
+// @Summary      Show debts
+// @Description  Lists all debts
+// @Tags         debts
+// @Accept       json
+// @Produce      json
+// @Success      200  {object}  d.Debt
+// @Failure      400  {object}  schemas.ErrorResponse
+// @Failure      404  {object}  schemas.ErrorResponse
+// @Failure      500  {object}  schemas.ErrorResponse
+// @Router       /debt [get]
 func list(c *gin.Context) {
-
 	debts := s.GetDebts()
 
 	c.JSON(http.StatusOK, gin.H{"debts": debts})
 }
 
+// @Summary      Create a debt
+// @Description  Creates a new debt
+// @Tags         debts
+// @Accept       json
+// @Produce      json
+// @Param		 debt body		sd.InputNewDebt	true	"Add debt"
+// @Success      200  {object}  d.Debt
+// @Failure      400  {object}  schemas.ErrorResponse
+// @Failure      404  {object}  schemas.ErrorResponse
+// @Failure      500  {object}  schemas.ErrorResponse
+// @Router       /debt [post]
 func create(c *gin.Context) {
-
 	json := &d.Debt{}
 
 	err := c.ShouldBindJSON(json)
@@ -49,6 +67,16 @@ func create(c *gin.Context) {
 
 }
 
+// @Summary      Update a debt
+// @Description  Updates an existing debt
+// @Tags         debts
+// @Accept       json
+// @Produce      json
+// @Success      200  {object}  d.Debt
+// @Failure      400  {object}  schemas.ErrorResponse
+// @Failure      404  {object}  schemas.ErrorResponse
+// @Failure      500  {object}  schemas.ErrorResponse
+// @Router       /debt [put]
 func update(c *gin.Context) {
 
 	json := &d.Debt{}
@@ -76,6 +104,17 @@ func update(c *gin.Context) {
 	}
 }
 
+// @Summary      Delete a debt
+// @Description  Deletes an existing debt
+// @Tags         debts
+// @Accept       json
+// @Produce      json
+// @Param        id   path      string  true  "Debt ID"
+// @Success      200  {object}  d.Debt
+// @Failure      400  {object}  schemas.ErrorResponse
+// @Failure      404  {object}  schemas.ErrorResponse
+// @Failure      500  {object}  schemas.ErrorResponse
+// @Router       /debt/{id} [delete]
 func delete(c *gin.Context) {
 
 	uri := c.Param("id")
@@ -98,6 +137,16 @@ func delete(c *gin.Context) {
 
 }
 
+// @Summary      Set a debt paid/unpaid
+// @Description  Sets an existing debt paid/unpaid
+// @Tags         debts
+// @Accept       json
+// @Produce      json
+// @Success      200  {object}  d.Debt
+// @Failure      400  {object}  schemas.ErrorResponse
+// @Failure      404  {object}  schemas.ErrorResponse
+// @Failure      500  {object}  schemas.ErrorResponse
+// @Router       /debt/payment/ [post]
 func pay(c *gin.Context) {
 
 	json := &sd.InputUpdatePaymentStatus{}
