@@ -39,7 +39,7 @@ func list(c *gin.Context) {
 // @Tags         debts
 // @Accept       json
 // @Produce      json
-// @Param		 debt body		sd.InputNewDebt	true	"Add debt"
+// @Param		 debt body		sd.BodyNewDebt	true	"Request body to add a debt"
 // @Success      200  {object}  d.Debt
 // @Failure      400  {object}  schemas.ErrorResponse
 // @Failure      404  {object}  schemas.ErrorResponse
@@ -72,6 +72,7 @@ func create(c *gin.Context) {
 // @Tags         debts
 // @Accept       json
 // @Produce      json
+// @Param        debt body      sd.BodyUpdateDebt  true  "Request body to update debt"
 // @Success      200  {object}  d.Debt
 // @Failure      400  {object}  schemas.ErrorResponse
 // @Failure      404  {object}  schemas.ErrorResponse
@@ -109,7 +110,7 @@ func update(c *gin.Context) {
 // @Tags         debts
 // @Accept       json
 // @Produce      json
-// @Param        id   path      string  true  "Debt ID"
+// @Param        id   path      string  true  "ID"
 // @Success      200  {object}  d.Debt
 // @Failure      400  {object}  schemas.ErrorResponse
 // @Failure      404  {object}  schemas.ErrorResponse
@@ -142,6 +143,7 @@ func delete(c *gin.Context) {
 // @Tags         debts
 // @Accept       json
 // @Produce      json
+// @Param		 debt body		sd.BodyUpdateDebtPaymentStatus	true	"Request body to update a debt payment status"
 // @Success      200  {object}  d.Debt
 // @Failure      400  {object}  schemas.ErrorResponse
 // @Failure      404  {object}  schemas.ErrorResponse
@@ -149,7 +151,7 @@ func delete(c *gin.Context) {
 // @Router       /debt/payment/ [post]
 func pay(c *gin.Context) {
 
-	json := &sd.InputUpdatePaymentStatus{}
+	json := &sd.BodyUpdateDebtPaymentStatus{}
 
 	err := c.ShouldBindJSON(json)
 

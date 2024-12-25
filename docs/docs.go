@@ -67,6 +67,17 @@ const docTemplate = `{
                     "debts"
                 ],
                 "summary": "Update a debt",
+                "parameters": [
+                    {
+                        "description": "Request body to update debt",
+                        "name": "debt",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/debt.BodyUpdateDebt"
+                        }
+                    }
+                ],
                 "responses": {
                     "200": {
                         "description": "OK",
@@ -113,7 +124,7 @@ const docTemplate = `{
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/debt.InputNewDebt"
+                            "$ref": "#/definitions/debt.BodyNewDebt"
                         }
                     }
                 ],
@@ -158,6 +169,17 @@ const docTemplate = `{
                     "debts"
                 ],
                 "summary": "Set a debt paid/unpaid",
+                "parameters": [
+                    {
+                        "description": "Update debt payment status",
+                        "name": "debt",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/debt.BodyUpdateDebtPaymentStatus"
+                        }
+                    }
+                ],
                 "responses": {
                     "200": {
                         "description": "OK",
@@ -202,7 +224,7 @@ const docTemplate = `{
                 "parameters": [
                     {
                         "type": "string",
-                        "description": "Debt ID",
+                        "description": "ID",
                         "name": "id",
                         "in": "path",
                         "required": true
@@ -407,6 +429,60 @@ const docTemplate = `{
         }
     },
     "definitions": {
+        "debt.BodyNewDebt": {
+            "type": "object",
+            "properties": {
+                "description": {
+                    "type": "string"
+                },
+                "dueDate": {
+                    "type": "string",
+                    "example": "2024-12-25"
+                },
+                "name": {
+                    "type": "string"
+                },
+                "value": {
+                    "type": "number"
+                }
+            }
+        },
+        "debt.BodyUpdateDebt": {
+            "type": "object",
+            "properties": {
+                "description": {
+                    "type": "string"
+                },
+                "dueDate": {
+                    "type": "string",
+                    "example": "2024-12-25"
+                },
+                "id": {
+                    "type": "string"
+                },
+                "name": {
+                    "type": "string"
+                },
+                "paymentDate": {
+                    "type": "string",
+                    "example": "2024-12-25"
+                },
+                "value": {
+                    "type": "number"
+                }
+            }
+        },
+        "debt.BodyUpdateDebtPaymentStatus": {
+            "type": "object",
+            "properties": {
+                "id": {
+                    "type": "string"
+                },
+                "paid": {
+                    "type": "boolean"
+                }
+            }
+        },
         "debt.Debt": {
             "type": "object",
             "required": [
@@ -438,30 +514,6 @@ const docTemplate = `{
                 "paymentDate": {
                     "type": "string",
                     "example": "2024-12-25"
-                },
-                "value": {
-                    "type": "number"
-                }
-            }
-        },
-        "debt.InputNewDebt": {
-            "type": "object",
-            "required": [
-                "description",
-                "dueDate",
-                "name",
-                "value"
-            ],
-            "properties": {
-                "description": {
-                    "type": "string"
-                },
-                "dueDate": {
-                    "type": "string",
-                    "example": "2024-12-25"
-                },
-                "name": {
-                    "type": "string"
                 },
                 "value": {
                     "type": "number"

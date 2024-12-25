@@ -3,8 +3,9 @@ package debt
 import (
 	d "finances/internal/domain/models/debt"
 	db "finances/internal/infra/db/repositories/debt"
-	uuid "github.com/satori/go.uuid"
 	"log"
+
+	uuid "github.com/satori/go.uuid"
 )
 
 func GetDebts() []d.Debt {
