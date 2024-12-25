@@ -11,8 +11,8 @@ type InputUpdatePaymentStatus struct {
 }
 
 type InputNewDebt struct {
-	Name        string      `gorm:"column:name" json:"name" binding:"required"`
-	Description string      `gorm:"column:description" json:"description" binding:"required"`
-	Value       float64     `gorm:"column:value" json:"value" binding:"required"`
-	DueDate     carbon.Date `gorm:"column:due_date;type:date" json:"dueDate" binding:"required" swaggertype:"string" example:"2024-12-25"`
+	Name        string      `json:"name"`
+	Description string      `json:"description"`
+	Value       float64     `json:"value"`
+	DueDate     carbon.Date `json:"dueDate" swaggertype:"string" example:"2024-12-25"`
 }
