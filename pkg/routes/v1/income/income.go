@@ -37,6 +37,7 @@ func list(c *gin.Context) {
 // @Tags         incomes
 // @Accept       json
 // @Produce      json
+// @Param		 income body	income.BodyNewIncome	true	"Request body to add an income"
 // @Success      200  {object}  i.Income
 // @Failure      400  {object}  schemas.ErrorResponse
 // @Failure      404  {object}  schemas.ErrorResponse
@@ -68,6 +69,7 @@ func create(c *gin.Context) {
 // @Tags         incomes
 // @Accept       json
 // @Produce      json
+// @Param		 income body	si.BodyUpdateIncome	true	"Request body to update an income"
 // @Success      200  {object}  i.Income
 // @Failure      400  {object}  schemas.ErrorResponse
 // @Failure      404  {object}  schemas.ErrorResponse
