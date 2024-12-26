@@ -1,7 +1,7 @@
 package server
 
 import (
-	routes "finances/pkg/routes"
+	"finances/pkg/routes"
 	v1 "finances/pkg/routes/v1"
 
 	"github.com/gin-gonic/gin"

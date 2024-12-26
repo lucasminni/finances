@@ -9,3 +9,8 @@ Bugs
 - Update debt não aceita valor zero
 - Create debt não aceita valor zero
 - Tratar erro 500 quando se tenta deletar um debt que não existe
+
+To dos
+
+- Criar swagger para income
+- Criar swagger para balance

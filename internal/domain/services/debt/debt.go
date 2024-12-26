@@ -1,14 +1,14 @@
 package debt
 
 import (
-	d "finances/internal/domain/models/debt"
+	"finances/internal/domain/models/debt"
 	db "finances/internal/infra/db/repositories/debt"
 	"log"
 
 	uuid "github.com/satori/go.uuid"
 )
 
-func GetDebts() []d.Debt {
+func GetDebts() []debt.Debt {
 	debts := db.GetDebts()
 
 	debts = db.UpdateOverdueDebt(debts)
@@ -16,7 +16,7 @@ func GetDebts() []d.Debt {
 	return debts
 }
 
-func CreateDebt(debt d.Debt) (*d.Debt, error) {
+func CreateDebt(debt debt.Debt) (*debt.Debt, error) {
 	debt.ID = uuid.NewV4()
 	debt.Overdue = debt.SetOverdue()
 
@@ -29,7 +29,7 @@ func CreateDebt(debt d.Debt) (*d.Debt, error) {
 	return &debt, nil
 }
 
-func UpdateDebt(debt d.Debt) (*d.Debt, error) {
+func UpdateDebt(debt debt.Debt) (*debt.Debt, error) {
 	debt.Overdue = debt.SetOverdue()
 
 	err := db.UpdateDebt(debt)
@@ -53,7 +53,7 @@ func DeleteDebt(id string) error {
 	return nil
 }
 
-func UpdatePaymentStatus(id string, status bool) (*d.Debt, error) {
+func UpdatePaymentStatus(id string, status bool) (*debt.Debt, error) {
 	debt, err := db.GetDebtById(id)
 
 	if err != nil {

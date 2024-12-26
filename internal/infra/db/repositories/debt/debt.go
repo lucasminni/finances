@@ -2,12 +2,12 @@ package debt
 
 import (
 	"errors"
-	d "finances/internal/domain/models/debt"
+	"finances/internal/domain/models/debt"
 	"finances/internal/infra/db"
 	"log"
 )
 
-func InsertDebt(debt d.Debt) error {
+func InsertDebt(debt debt.Debt) error {
 	result := db.SQLConnector.Create(&debt)
 
 	if result.Error != nil {
@@ -18,8 +18,8 @@ func InsertDebt(debt d.Debt) error {
 	return nil
 }
 
-func GetDebts() []d.Debt {
-	var debts []d.Debt
+func GetDebts() []debt.Debt {
+	var debts []debt.Debt
 	query := db.SQLConnector.Find(&debts)
 
 	if query.Error != nil {
@@ -30,8 +30,8 @@ func GetDebts() []d.Debt {
 	return debts
 }
 
-func GetDebtById(id string) (*d.Debt, error) {
-	var result d.Debt
+func GetDebtById(id string) (*debt.Debt, error) {
+	var result debt.Debt
 	query := db.SQLConnector.First(&result, "id = ?", id)
 
 	if query.Error != nil {
@@ -42,7 +42,7 @@ func GetDebtById(id string) (*d.Debt, error) {
 	return &result, nil
 }
 
-func UpdateDebt(debt d.Debt) error {
+func UpdateDebt(debt debt.Debt) error {
 	result := db.SQLConnector.Save(&debt)
 
 	if result.Error != nil {
@@ -55,8 +55,8 @@ func UpdateDebt(debt d.Debt) error {
 }
 
 func DeleteDebtByID(id string) error {
-	if db.SQLConnector.First(&d.Debt{}, "id = ?", id).RowsAffected > 0 {
-		db.SQLConnector.Delete(&d.Debt{}, "id = ?", id)
+	if db.SQLConnector.First(&debt.Debt{}, "id = ?", id).RowsAffected > 0 {
+		db.SQLConnector.Delete(&debt.Debt{}, "id = ?", id)
 		log.Println("Debt id " + id + " deleted")
 		return nil
 	} else {
@@ -67,8 +67,8 @@ func DeleteDebtByID(id string) error {
 
 }
 
-func GetOutStandingDebts() ([]d.Debt, error) {
-	var debts []d.Debt
+func GetOutStandingDebts() ([]debt.Debt, error) {
+	var debts []debt.Debt
 
 	query := db.SQLConnector.Where("paid = ?", false).Find(&debts)
 
@@ -81,8 +81,8 @@ func GetOutStandingDebts() ([]d.Debt, error) {
 
 }
 
-func UpdateOverdueDebt(debts []d.Debt) []d.Debt {
-	var updatedDebts []d.Debt
+func UpdateOverdueDebt(debts []debt.Debt) []debt.Debt {
+	var updatedDebts []debt.Debt
 
 	for _, debt := range debts {
 		debt.Overdue = debt.SetOverdue()
@@ -94,7 +94,7 @@ func UpdateOverdueDebt(debts []d.Debt) []d.Debt {
 
 }
 
-func SetDebtPaid(debt d.Debt) error {
+func SetDebtPaid(debt debt.Debt) error {
 	err := db.SQLConnector.Model(&debt).Updates(map[string]interface{}{"paid": debt.Paid, "payment_date": debt.PaymentDate})
 
 	if err != nil {
@@ -105,7 +105,7 @@ func SetDebtPaid(debt d.Debt) error {
 
 }
 
-func SetDebtUnpaid(debt d.Debt) error {
+func SetDebtUnpaid(debt debt.Debt) error {
 	err := db.SQLConnector.Model(&debt).Updates(map[string]interface{}{"paid": debt.Paid, "payment_date": nil})
 
 	if err != nil {

@@ -1,9 +1,10 @@
 package routes
 
 import (
-	d "finances/internal/domain/models/debt"
-	sd "finances/internal/domain/schemas/debt"
-	s "finances/internal/domain/services/debt"
+	model "finances/internal/domain/models/debt"
+	schema "finances/internal/domain/schemas/debt"
+	service "finances/internal/domain/services/debt"
+	"finances/internal/infra/db/repositories/debt"
 	"log"
 	"net/http"
 
@@ -29,7 +30,7 @@ func Register(r *gin.RouterGroup) {
 // @Failure      500  {object}  schemas.ErrorResponse
 // @Router       /debt [get]
 func list(c *gin.Context) {
-	debts := s.GetDebts()
+	debts := debt.GetDebts()
 
 	c.JSON(http.StatusOK, gin.H{"debts": debts})
 }
@@ -46,7 +47,7 @@ func list(c *gin.Context) {
 // @Failure      500  {object}  schemas.ErrorResponse
 // @Router       /debt [post]
 func create(c *gin.Context) {
-	json := &d.Debt{}
+	json := &model.Debt{}
 
 	err := c.ShouldBindJSON(json)
 
@@ -55,7 +56,7 @@ func create(c *gin.Context) {
 		log.Panic("Binding JSON error - " + err.Error())
 	}
 
-	debt, err := s.CreateDebt(*json)
+	debt, err := service.CreateDebt(*json)
 
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{"error": "Inserting debt error - " + err.Error()})
@@ -64,7 +65,6 @@ func create(c *gin.Context) {
 			"id": debt.ID,
 		})
 	}
-
 }
 
 // @Summary      Update a debt
@@ -79,8 +79,7 @@ func create(c *gin.Context) {
 // @Failure      500  {object}  schemas.ErrorResponse
 // @Router       /debt [put]
 func update(c *gin.Context) {
-
-	json := &d.Debt{}
+	json := &model.Debt{}
 
 	err := c.ShouldBindJSON(json)
 
@@ -89,7 +88,7 @@ func update(c *gin.Context) {
 		log.Panic("Binding JSON error - " + err.Error())
 	}
 
-	debt, err := s.UpdateDebt(*json)
+	debt, err := service.UpdateDebt(*json)
 
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{"error": "Updating debt error - " + err.Error()})
@@ -117,7 +116,6 @@ func update(c *gin.Context) {
 // @Failure      500  {object}  schemas.ErrorResponse
 // @Router       /debt/{id} [delete]
 func delete(c *gin.Context) {
-
 	uri := c.Param("id")
 
 	err := c.ShouldBindUri(uri)
@@ -127,7 +125,7 @@ func delete(c *gin.Context) {
 		log.Panic("Binding URI error - " + err.Error())
 	}
 
-	err = s.DeleteDebt(uri)
+	err = service.DeleteDebt(uri)
 
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{"error": "Deleting debt error - " + err.Error()})
@@ -135,7 +133,6 @@ func delete(c *gin.Context) {
 	} else {
 		c.JSON(http.StatusNoContent, gin.H{})
 	}
-
 }
 
 // @Summary      Set a debt paid/unpaid
@@ -151,7 +148,7 @@ func delete(c *gin.Context) {
 // @Router       /debt/payment/ [post]
 func pay(c *gin.Context) {
 
-	json := &sd.BodyUpdateDebtPaymentStatus{}
+	json := &schema.BodyUpdateDebtPaymentStatus{}
 
 	err := c.ShouldBindJSON(json)
 
@@ -160,7 +157,7 @@ func pay(c *gin.Context) {
 		log.Panic("Binding URI error - " + err.Error())
 	}
 
-	debt, err := s.UpdatePaymentStatus(json.ID.String(), json.Paid)
+	debt, err := service.UpdatePaymentStatus(json.ID.String(), json.Paid)
 
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{"error": "Update debt error - " + err.Error()})

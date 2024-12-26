@@ -1,17 +1,17 @@
-package debt
+package income
 
 import (
-	i "finances/internal/domain/models/income"
+	"finances/internal/domain/models/income"
 	db "finances/internal/infra/db/repositories/income"
 	uuid "github.com/satori/go.uuid"
 	"log"
 )
 
-func GetIncomes() []i.Income {
+func GetIncomes() []income.Income {
 	return db.GetIncomes()
 }
 
-func CreateIncome(income i.Income) (*i.Income, error) {
+func CreateIncome(income income.Income) (*income.Income, error) {
 	income.ID = uuid.NewV4()
 
 	err := db.InsertIncome(income)
@@ -23,7 +23,7 @@ func CreateIncome(income i.Income) (*i.Income, error) {
 	return &income, nil
 }
 
-func UpdateIncome(income i.Income) (*i.Income, error) {
+func UpdateIncome(income income.Income) (*income.Income, error) {
 	err := db.UpdateIncome(income)
 
 	if err != nil {

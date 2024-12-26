@@ -1,8 +1,8 @@
 package db
 
 import (
-	d "finances/internal/domain/models/debt"
-	i "finances/internal/domain/models/income"
+	"finances/internal/domain/models/debt"
+	"finances/internal/domain/models/income"
 	"fmt"
 	"log"
 	"os"
@@ -40,8 +40,8 @@ func ConnectDatabase() {
 
 	log.Println("Starting AutoMigrate...")
 	err = SQLConnector.AutoMigrate(
-		&d.Debt{},
-		&i.Income{},
+		&debt.Debt{},
+		&income.Income{},
 	)
 
 	if os.Getenv("DEBUG") == "true" {

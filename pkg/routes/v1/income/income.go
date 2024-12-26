@@ -1,8 +1,8 @@
 package routes
 
 import (
-	i "finances/internal/domain/models/income"
-	s "finances/internal/domain/services/income"
+	model "finances/internal/domain/models/income"
+	service "finances/internal/domain/services/income"
 	"log"
 	"net/http"
 
@@ -27,7 +27,7 @@ func Register(r *gin.RouterGroup) {
 // @Failure      500  {object}  schemas.ErrorResponse
 // @Router       /income [get]
 func list(c *gin.Context) {
-	incomes := s.GetIncomes()
+	incomes := service.GetIncomes()
 
 	c.JSON(http.StatusOK, gin.H{"incomes": incomes})
 }
@@ -44,7 +44,7 @@ func list(c *gin.Context) {
 // @Failure      500  {object}  schemas.ErrorResponse
 // @Router       /income [post]
 func create(c *gin.Context) {
-	json := &i.Income{}
+	json := &model.Income{}
 
 	err := c.ShouldBindJSON(json)
 
@@ -53,7 +53,7 @@ func create(c *gin.Context) {
 		log.Panic("Binding JSON error - " + err.Error())
 	}
 
-	income, err := s.CreateIncome(*json)
+	income, err := service.CreateIncome(*json)
 
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{"error": "Inserting income error - " + err.Error()})
@@ -76,7 +76,7 @@ func create(c *gin.Context) {
 // @Failure      500  {object}  schemas.ErrorResponse
 // @Router       /income [put]
 func update(c *gin.Context) {
-	json := &i.Income{}
+	json := &model.Income{}
 
 	err := c.ShouldBindJSON(json)
 
@@ -85,7 +85,7 @@ func update(c *gin.Context) {
 		log.Panic("Binding JSON error - " + err.Error())
 	}
 
-	income, err := s.UpdateIncome(*json)
+	income, err := service.UpdateIncome(*json)
 
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{"error": "Updating income error - " + err.Error()})
@@ -121,7 +121,7 @@ func delete(c *gin.Context) {
 		log.Panic("Binding URI error - " + err.Error())
 	}
 
-	err = s.DeleteIncome(uri)
+	err = service.DeleteIncome(uri)
 
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{"error": "Deleting income error - " + err.Error()})
