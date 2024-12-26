@@ -21,10 +21,10 @@ func Register(r *gin.RouterGroup) {
 // @Tags         incomes
 // @Accept       json
 // @Produce      json
-// @Success      200  {object}  i.Income
-// @Failure      400  {object}  schemas.ErrorResponse
-// @Failure      404  {object}  schemas.ErrorResponse
-// @Failure      500  {object}  schemas.ErrorResponse
+// @Success      200
+// @Failure      400
+// @Failure      404
+// @Failure      500
 // @Router       /income [get]
 func list(c *gin.Context) {
 	incomes := service.GetIncomes()
@@ -38,10 +38,10 @@ func list(c *gin.Context) {
 // @Accept       json
 // @Produce      json
 // @Param		 income body	income.BodyNewIncome	true	"Request body to add an income"
-// @Success      200  {object}  i.Income
-// @Failure      400  {object}  schemas.ErrorResponse
-// @Failure      404  {object}  schemas.ErrorResponse
-// @Failure      500  {object}  schemas.ErrorResponse
+// @Success      200
+// @Failure      400
+// @Failure      404
+// @Failure      500
 // @Router       /income [post]
 func create(c *gin.Context) {
 	json := &model.Income{}
@@ -69,11 +69,11 @@ func create(c *gin.Context) {
 // @Tags         incomes
 // @Accept       json
 // @Produce      json
-// @Param		 income body	si.BodyUpdateIncome	true	"Request body to update an income"
-// @Success      200  {object}  i.Income
-// @Failure      400  {object}  schemas.ErrorResponse
-// @Failure      404  {object}  schemas.ErrorResponse
-// @Failure      500  {object}  schemas.ErrorResponse
+// @Param		 income body	income.BodyUpdateIncome	true	"Request body to update an income"
+// @Success      20
+// @Failure      400
+// @Failure      404
+// @Failure      500
 // @Router       /income [put]
 func update(c *gin.Context) {
 	json := &model.Income{}
@@ -105,11 +105,11 @@ func update(c *gin.Context) {
 // @Tags         incomes
 // @Accept       json
 // @Produce      json
-// @Param        id   path      string  true  "Debt ID"
-// @Success      200  {object}  i.Income
-// @Failure      400  {object}  schemas.ErrorResponse
-// @Failure      404  {object}  schemas.ErrorResponse
-// @Failure      500  {object}  schemas.ErrorResponse
+// @Param        id   path      string  true  "Income id"
+// @Success      200
+// @Failure      400
+// @Failure      404
+// @Failure      500
 // @Router       /income/{id} [delete]
 func delete(c *gin.Context) {
 	uri := c.Param("id")

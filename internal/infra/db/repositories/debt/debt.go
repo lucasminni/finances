@@ -51,7 +51,6 @@ func UpdateDebt(debt debt.Debt) error {
 	} else {
 		return nil
 	}
-
 }
 
 func DeleteDebtByID(id string) error {
@@ -64,7 +63,6 @@ func DeleteDebtByID(id string) error {
 		log.Panic(err.Error())
 		return err
 	}
-
 }
 
 func GetOutStandingDebts() ([]debt.Debt, error) {
@@ -78,7 +76,6 @@ func GetOutStandingDebts() ([]debt.Debt, error) {
 	} else {
 		return debts, nil
 	}
-
 }
 
 func UpdateOverdueDebt(debts []debt.Debt) []debt.Debt {
@@ -91,7 +88,6 @@ func UpdateOverdueDebt(debts []debt.Debt) []debt.Debt {
 	}
 
 	return updatedDebts
-
 }
 
 func SetDebtPaid(debt debt.Debt) error {
@@ -102,7 +98,6 @@ func SetDebtPaid(debt debt.Debt) error {
 	}
 
 	return nil
-
 }
 
 func SetDebtUnpaid(debt debt.Debt) error {

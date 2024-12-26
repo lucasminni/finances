@@ -24,10 +24,10 @@ func Register(r *gin.RouterGroup) {
 // @Tags         debts
 // @Accept       json
 // @Produce      json
-// @Success      200  {object}  d.Debt
-// @Failure      400  {object}  schemas.ErrorResponse
-// @Failure      404  {object}  schemas.ErrorResponse
-// @Failure      500  {object}  schemas.ErrorResponse
+// @Success      200
+// @Failure      400
+// @Failure      404
+// @Failure      500
 // @Router       /debt [get]
 func list(c *gin.Context) {
 	debts := debt.GetDebts()
@@ -40,11 +40,11 @@ func list(c *gin.Context) {
 // @Tags         debts
 // @Accept       json
 // @Produce      json
-// @Param		 debt body		sd.BodyNewDebt	true	"Request body to add a debt"
-// @Success      200  {object}  d.Debt
-// @Failure      400  {object}  schemas.ErrorResponse
-// @Failure      404  {object}  schemas.ErrorResponse
-// @Failure      500  {object}  schemas.ErrorResponse
+// @Param		 debt body		debt.BodyNewDebt	true	"Request body to add a debt"
+// @Success      200
+// @Failure      400
+// @Failure      404
+// @Failure      500
 // @Router       /debt [post]
 func create(c *gin.Context) {
 	json := &model.Debt{}
@@ -72,11 +72,11 @@ func create(c *gin.Context) {
 // @Tags         debts
 // @Accept       json
 // @Produce      json
-// @Param        debt body      sd.BodyUpdateDebt  true  "Request body to update debt"
-// @Success      200  {object}  d.Debt
-// @Failure      400  {object}  schemas.ErrorResponse
-// @Failure      404  {object}  schemas.ErrorResponse
-// @Failure      500  {object}  schemas.ErrorResponse
+// @Param        debt body      debt.BodyUpdateDebt  true  "Request body to update debt"
+// @Success      200
+// @Failure      400
+// @Failure      404
+// @Failure      500
 // @Router       /debt [put]
 func update(c *gin.Context) {
 	json := &model.Debt{}
@@ -109,11 +109,11 @@ func update(c *gin.Context) {
 // @Tags         debts
 // @Accept       json
 // @Produce      json
-// @Param        id   path      string  true  "ID"
-// @Success      200  {object}  d.Debt
-// @Failure      400  {object}  schemas.ErrorResponse
-// @Failure      404  {object}  schemas.ErrorResponse
-// @Failure      500  {object}  schemas.ErrorResponse
+// @Param        id   path      string  true  "Debt id"
+// @Success      200
+// @Failure      400
+// @Failure      404
+// @Failure      500
 // @Router       /debt/{id} [delete]
 func delete(c *gin.Context) {
 	uri := c.Param("id")
@@ -140,11 +140,11 @@ func delete(c *gin.Context) {
 // @Tags         debts
 // @Accept       json
 // @Produce      json
-// @Param		 debt body		sd.BodyUpdateDebtPaymentStatus	true	"Request body to update a debt payment status"
-// @Success      200  {object}  d.Debt
-// @Failure      400  {object}  schemas.ErrorResponse
-// @Failure      404  {object}  schemas.ErrorResponse
-// @Failure      500  {object}  schemas.ErrorResponse
+// @Param		 debt body		debt.BodyUpdateDebtPaymentStatus	true	"Request body to update a debt payment status"
+// @Success      200
+// @Failure      400
+// @Failure      404
+// @Failure      500
 // @Router       /debt/payment/ [post]
 func pay(c *gin.Context) {
 

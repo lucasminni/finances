@@ -15,6 +15,34 @@ const docTemplate = `{
     "host": "{{.Host}}",
     "basePath": "{{.BasePath}}",
     "paths": {
+        "/balance": {
+            "get": {
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "balance"
+                ],
+                "summary": "Show balance",
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "404": {
+                        "description": "Not Found"
+                    },
+                    "500": {
+                        "description": "Internal Server Error"
+                    }
+                }
+            }
+        },
         "/debt": {
             "get": {
                 "description": "Lists all debts",
@@ -30,28 +58,16 @@ const docTemplate = `{
                 "summary": "Show debts",
                 "responses": {
                     "200": {
-                        "description": "OK",
-                        "schema": {
-                            "$ref": "#/definitions/debt.Debt"
-                        }
+                        "description": "OK"
                     },
                     "400": {
-                        "description": "Bad Request",
-                        "schema": {
-                            "$ref": "#/definitions/schemas.ErrorResponse"
-                        }
+                        "description": "Bad Request"
                     },
                     "404": {
-                        "description": "Not Found",
-                        "schema": {
-                            "$ref": "#/definitions/schemas.ErrorResponse"
-                        }
+                        "description": "Not Found"
                     },
                     "500": {
-                        "description": "Internal Server Error",
-                        "schema": {
-                            "$ref": "#/definitions/schemas.ErrorResponse"
-                        }
+                        "description": "Internal Server Error"
                     }
                 }
             },
@@ -80,28 +96,16 @@ const docTemplate = `{
                 ],
                 "responses": {
                     "200": {
-                        "description": "OK",
-                        "schema": {
-                            "$ref": "#/definitions/debt.Debt"
-                        }
+                        "description": "OK"
                     },
                     "400": {
-                        "description": "Bad Request",
-                        "schema": {
-                            "$ref": "#/definitions/schemas.ErrorResponse"
-                        }
+                        "description": "Bad Request"
                     },
                     "404": {
-                        "description": "Not Found",
-                        "schema": {
-                            "$ref": "#/definitions/schemas.ErrorResponse"
-                        }
+                        "description": "Not Found"
                     },
                     "500": {
-                        "description": "Internal Server Error",
-                        "schema": {
-                            "$ref": "#/definitions/schemas.ErrorResponse"
-                        }
+                        "description": "Internal Server Error"
                     }
                 }
             },
@@ -130,28 +134,16 @@ const docTemplate = `{
                 ],
                 "responses": {
                     "200": {
-                        "description": "OK",
-                        "schema": {
-                            "$ref": "#/definitions/debt.Debt"
-                        }
+                        "description": "OK"
                     },
                     "400": {
-                        "description": "Bad Request",
-                        "schema": {
-                            "$ref": "#/definitions/schemas.ErrorResponse"
-                        }
+                        "description": "Bad Request"
                     },
                     "404": {
-                        "description": "Not Found",
-                        "schema": {
-                            "$ref": "#/definitions/schemas.ErrorResponse"
-                        }
+                        "description": "Not Found"
                     },
                     "500": {
-                        "description": "Internal Server Error",
-                        "schema": {
-                            "$ref": "#/definitions/schemas.ErrorResponse"
-                        }
+                        "description": "Internal Server Error"
                     }
                 }
             }
@@ -182,28 +174,16 @@ const docTemplate = `{
                 ],
                 "responses": {
                     "200": {
-                        "description": "OK",
-                        "schema": {
-                            "$ref": "#/definitions/debt.Debt"
-                        }
+                        "description": "OK"
                     },
                     "400": {
-                        "description": "Bad Request",
-                        "schema": {
-                            "$ref": "#/definitions/schemas.ErrorResponse"
-                        }
+                        "description": "Bad Request"
                     },
                     "404": {
-                        "description": "Not Found",
-                        "schema": {
-                            "$ref": "#/definitions/schemas.ErrorResponse"
-                        }
+                        "description": "Not Found"
                     },
                     "500": {
-                        "description": "Internal Server Error",
-                        "schema": {
-                            "$ref": "#/definitions/schemas.ErrorResponse"
-                        }
+                        "description": "Internal Server Error"
                     }
                 }
             }
@@ -224,7 +204,7 @@ const docTemplate = `{
                 "parameters": [
                     {
                         "type": "string",
-                        "description": "ID",
+                        "description": "Debt id",
                         "name": "id",
                         "in": "path",
                         "required": true
@@ -232,28 +212,16 @@ const docTemplate = `{
                 ],
                 "responses": {
                     "200": {
-                        "description": "OK",
-                        "schema": {
-                            "$ref": "#/definitions/debt.Debt"
-                        }
+                        "description": "OK"
                     },
                     "400": {
-                        "description": "Bad Request",
-                        "schema": {
-                            "$ref": "#/definitions/schemas.ErrorResponse"
-                        }
+                        "description": "Bad Request"
                     },
                     "404": {
-                        "description": "Not Found",
-                        "schema": {
-                            "$ref": "#/definitions/schemas.ErrorResponse"
-                        }
+                        "description": "Not Found"
                     },
                     "500": {
-                        "description": "Internal Server Error",
-                        "schema": {
-                            "$ref": "#/definitions/schemas.ErrorResponse"
-                        }
+                        "description": "Internal Server Error"
                     }
                 }
             }
@@ -273,28 +241,16 @@ const docTemplate = `{
                 "summary": "Show incomes",
                 "responses": {
                     "200": {
-                        "description": "OK",
-                        "schema": {
-                            "$ref": "#/definitions/income.Income"
-                        }
+                        "description": "OK"
                     },
                     "400": {
-                        "description": "Bad Request",
-                        "schema": {
-                            "$ref": "#/definitions/schemas.ErrorResponse"
-                        }
+                        "description": "Bad Request"
                     },
                     "404": {
-                        "description": "Not Found",
-                        "schema": {
-                            "$ref": "#/definitions/schemas.ErrorResponse"
-                        }
+                        "description": "Not Found"
                     },
                     "500": {
-                        "description": "Internal Server Error",
-                        "schema": {
-                            "$ref": "#/definitions/schemas.ErrorResponse"
-                        }
+                        "description": "Internal Server Error"
                     }
                 }
             },
@@ -310,30 +266,29 @@ const docTemplate = `{
                     "incomes"
                 ],
                 "summary": "Update an income",
-                "responses": {
-                    "200": {
-                        "description": "OK",
+                "parameters": [
+                    {
+                        "description": "Request body to update an income",
+                        "name": "income",
+                        "in": "body",
+                        "required": true,
                         "schema": {
-                            "$ref": "#/definitions/income.Income"
+                            "$ref": "#/definitions/income.BodyUpdateIncome"
                         }
+                    }
+                ],
+                "responses": {
+                    "20": {
+                        "description": ""
                     },
                     "400": {
-                        "description": "Bad Request",
-                        "schema": {
-                            "$ref": "#/definitions/schemas.ErrorResponse"
-                        }
+                        "description": "Bad Request"
                     },
                     "404": {
-                        "description": "Not Found",
-                        "schema": {
-                            "$ref": "#/definitions/schemas.ErrorResponse"
-                        }
+                        "description": "Not Found"
                     },
                     "500": {
-                        "description": "Internal Server Error",
-                        "schema": {
-                            "$ref": "#/definitions/schemas.ErrorResponse"
-                        }
+                        "description": "Internal Server Error"
                     }
                 }
             },
@@ -349,30 +304,29 @@ const docTemplate = `{
                     "incomes"
                 ],
                 "summary": "Create an income",
+                "parameters": [
+                    {
+                        "description": "Request body to add an income",
+                        "name": "income",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/income.BodyNewIncome"
+                        }
+                    }
+                ],
                 "responses": {
                     "200": {
-                        "description": "OK",
-                        "schema": {
-                            "$ref": "#/definitions/income.Income"
-                        }
+                        "description": "OK"
                     },
                     "400": {
-                        "description": "Bad Request",
-                        "schema": {
-                            "$ref": "#/definitions/schemas.ErrorResponse"
-                        }
+                        "description": "Bad Request"
                     },
                     "404": {
-                        "description": "Not Found",
-                        "schema": {
-                            "$ref": "#/definitions/schemas.ErrorResponse"
-                        }
+                        "description": "Not Found"
                     },
                     "500": {
-                        "description": "Internal Server Error",
-                        "schema": {
-                            "$ref": "#/definitions/schemas.ErrorResponse"
-                        }
+                        "description": "Internal Server Error"
                     }
                 }
             }
@@ -393,7 +347,7 @@ const docTemplate = `{
                 "parameters": [
                     {
                         "type": "string",
-                        "description": "Debt ID",
+                        "description": "Income id",
                         "name": "id",
                         "in": "path",
                         "required": true
@@ -401,28 +355,16 @@ const docTemplate = `{
                 ],
                 "responses": {
                     "200": {
-                        "description": "OK",
-                        "schema": {
-                            "$ref": "#/definitions/income.Income"
-                        }
+                        "description": "OK"
                     },
                     "400": {
-                        "description": "Bad Request",
-                        "schema": {
-                            "$ref": "#/definitions/schemas.ErrorResponse"
-                        }
+                        "description": "Bad Request"
                     },
                     "404": {
-                        "description": "Not Found",
-                        "schema": {
-                            "$ref": "#/definitions/schemas.ErrorResponse"
-                        }
+                        "description": "Not Found"
                     },
                     "500": {
-                        "description": "Internal Server Error",
-                        "schema": {
-                            "$ref": "#/definitions/schemas.ErrorResponse"
-                        }
+                        "description": "Internal Server Error"
                     }
                 }
             }
@@ -483,35 +425,16 @@ const docTemplate = `{
                 }
             }
         },
-        "debt.Debt": {
+        "income.BodyNewIncome": {
             "type": "object",
-            "required": [
-                "description",
-                "dueDate",
-                "name",
-                "value"
-            ],
             "properties": {
                 "description": {
-                    "type": "string"
-                },
-                "dueDate": {
-                    "type": "string",
-                    "example": "2024-12-25"
-                },
-                "id": {
                     "type": "string"
                 },
                 "name": {
                     "type": "string"
                 },
-                "overdue": {
-                    "type": "boolean"
-                },
-                "paid": {
-                    "type": "boolean"
-                },
-                "paymentDate": {
+                "receivedDate": {
                     "type": "string",
                     "example": "2024-12-25"
                 },
@@ -520,14 +443,8 @@ const docTemplate = `{
                 }
             }
         },
-        "income.Income": {
+        "income.BodyUpdateIncome": {
             "type": "object",
-            "required": [
-                "description",
-                "name",
-                "receivedDate",
-                "value"
-            ],
             "properties": {
                 "description": {
                     "type": "string"
@@ -544,14 +461,6 @@ const docTemplate = `{
                 },
                 "value": {
                     "type": "number"
-                }
-            }
-        },
-        "schemas.ErrorResponse": {
-            "type": "object",
-            "properties": {
-                "error": {
-                    "type": "string"
                 }
             }
         }
