@@ -13,5 +13,3 @@ func Register(r *gin.RouterGroup) {
 	debtV1.Register(r)
 	balanceV1.Register(r)
 }
-
-// oi
