@@ -2,17 +2,3 @@ Ideias
 
 - Adicionar um queryParam para trazer somente debts em overdue
 - No endpoint de balance, trazer balance líquido juntamente com o estimado
-
-
-Bugs
-
-- Update debt não aceita valor zero
-- Create debt não aceita valor zero
-- Tratar erro 500 quando se tenta deletar um debt que não existe
-- Update income não aceita valor zero
-- Create income não aceita valor zero
-
-To dos
-
-- Criar swagger para income
-- Criar swagger para balance

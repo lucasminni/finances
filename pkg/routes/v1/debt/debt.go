@@ -24,6 +24,7 @@ func Register(r *gin.RouterGroup) {
 // @Tags         debts
 // @Accept       json
 // @Produce      json
+// @Param        overdue   path      string  true  "Debt id"
 // @Success      200
 // @Failure      400
 // @Failure      404

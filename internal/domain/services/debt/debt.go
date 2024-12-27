@@ -96,7 +96,7 @@ func GetTotalDebtValue() float64 {
 	debts, _ := db.GetOutStandingDebts()
 
 	for _, debt := range debts {
-		totalDebtValue += debt.Value
+		totalDebtValue += *debt.Value
 	}
 	return totalDebtValue
 }

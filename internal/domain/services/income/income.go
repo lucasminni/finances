@@ -57,7 +57,7 @@ func GetTotalIncomeValue() float64 {
 	incomes := db.GetIncomes()
 
 	for _, income := range incomes {
-		totalIncomeValue += income.Value
+		totalIncomeValue += *income.Value
 	}
 
 	return totalIncomeValue

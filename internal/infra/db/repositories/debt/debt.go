@@ -60,7 +60,7 @@ func DeleteDebtByID(id string) error {
 		return nil
 	} else {
 		err := errors.New("Debt id " + id + " not found")
-		log.Panic(err.Error())
+		log.Println(err.Error())
 		return err
 	}
 }
