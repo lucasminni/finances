@@ -9,7 +9,7 @@ import (
 )
 
 func GetDebts() []debt.Debt {
-	debts := db.GetDebts()
+	debts := db.GetDebts(nil)
 
 	debts = db.UpdateOverdueDebt(debts)
 

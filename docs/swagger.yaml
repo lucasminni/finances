@@ -87,6 +87,11 @@ paths:
       consumes:
       - application/json
       description: Lists all debts
+      parameters:
+      - description: Debt id
+        in: query
+        name: overdue
+        type: string
       produces:
       - application/json
       responses:

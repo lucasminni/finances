@@ -7,6 +7,7 @@ import (
 	"finances/internal/infra/db/repositories/debt"
 	"log"
 	"net/http"
+	"strconv"
 
 	"github.com/gin-gonic/gin"
 )
@@ -24,14 +25,30 @@ func Register(r *gin.RouterGroup) {
 // @Tags         debts
 // @Accept       json
 // @Produce      json
-// @Param        overdue   path      string  true  "Debt id"
+// @Param        overdue   query   string  false  "Debt id"
 // @Success      200
 // @Failure      400
 // @Failure      404
 // @Failure      500
 // @Router       /debt [get]
 func list(c *gin.Context) {
-	debts := debt.GetDebts()
+	var overdue *bool
+
+	param := c.Query("overdue")
+	err := c.ShouldBindUri(param)
+
+	if err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+	}
+
+	if param == "" {
+		overdue = nil
+	} else {
+		parsedOverdue, _ := strconv.ParseBool(param)
+		overdue = &parsedOverdue
+	}
+
+	debts := debt.GetDebts(overdue)
 
 	c.JSON(http.StatusOK, gin.H{"debts": debts})
 }

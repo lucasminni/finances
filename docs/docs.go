@@ -56,6 +56,14 @@ const docTemplate = `{
                     "debts"
                 ],
                 "summary": "Show debts",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Debt id",
+                        "name": "overdue",
+                        "in": "query"
+                    }
+                ],
                 "responses": {
                     "200": {
                         "description": "OK"

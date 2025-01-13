@@ -18,13 +18,40 @@ func InsertDebt(debt debt.Debt) error {
 	return nil
 }
 
-func GetDebts() []debt.Debt {
+func GetDebts(overdue *bool) []debt.Debt {
 	var debts []debt.Debt
-	query := db.SQLConnector.Find(&debts)
 
-	if query.Error != nil {
-		log.Panic(query.Error)
-		return nil
+	if overdue == nil {
+		query := db.SQLConnector.Find(&debts)
+
+		if query.Error != nil {
+			log.Panic(query.Error)
+			return nil
+		}
+
+		return debts
+	}
+
+	if overdue != nil {
+		switch *overdue {
+		case true:
+			query := db.SQLConnector.Find(&debts, "overdue = ?", true)
+
+			if query.Error != nil {
+				log.Panic(query.Error)
+				return nil
+			}
+
+		case false:
+			query := db.SQLConnector.Find(&debts, "overdue = ?", false)
+
+			if query.Error != nil {
+				log.Panic(query.Error)
+				return nil
+			}
+		}
+
+		return debts
 	}
 
 	return debts
