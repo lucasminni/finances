@@ -38,21 +38,22 @@ func ConnectDatabase() {
 		log.Println("Connected to database!")
 	}
 
-	log.Println("Starting AutoMigrate...")
-	err = SQLConnector.AutoMigrate(
-		&debt.Debt{},
-		&income.Income{},
-	)
+	if os.Getenv("AUTOMIGRATE") == "true" {
+		log.Println("Starting AutoMigrate...")
+		err = SQLConnector.AutoMigrate(
+			&debt.Debt{},
+			&income.Income{},
+		)
+		if err != nil {
+			log.Fatalf("Failed to auto migrate: %v", err)
+		} else {
+			log.Println("Migration complete!")
+		}
+	}
 
 	if os.Getenv("DEBUG") == "true" {
 		SQLConnector.Debug()
 		log.Println("Debug mode on!")
-	}
-
-	if err != nil {
-		log.Fatalf("Failed to auto migrate: %v", err)
-	} else {
-		log.Println("Migration complete!")
 	}
 
 }
