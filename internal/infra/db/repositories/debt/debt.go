@@ -92,10 +92,10 @@ func DeleteDebtByID(id string) error {
 	}
 }
 
-func GetOutStandingDebts() ([]debt.Debt, error) {
+func GetPaidDebts() ([]debt.Debt, error) {
 	var debts []debt.Debt
 
-	query := db.SQLConnector.Where("paid = ?", false).Find(&debts)
+	query := db.SQLConnector.Where("paid = ?", true).Find(&debts)
 
 	if query.Error != nil {
 		log.Panic(query.Error)

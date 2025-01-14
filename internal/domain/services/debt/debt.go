@@ -89,10 +89,10 @@ func UpdatePaymentStatus(id string, status bool) (*debt.Debt, error) {
 	}
 }
 
-func GetTotalOutstandingDebtValue() float64 {
+func GetTotalPaidDebtValue() float64 {
 	var totalDebtValue float64
 
-	debts, _ := db.GetOutStandingDebts()
+	debts, _ := db.GetPaidDebts()
 
 	for _, debt := range debts {
 		totalDebtValue += *debt.Value

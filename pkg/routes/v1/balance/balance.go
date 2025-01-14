@@ -20,8 +20,8 @@ func Register(r *gin.RouterGroup) {
 // @Failure      500
 // @Router       /balance [get]
 func calculate(c *gin.Context) {
-	netBalance := balance.GetNetBalance()
-	estimatedBalance := balance.GetEstimatedNetBalance()
+	current := balance.GetCurrentBalance()
+	estimated := balance.GetEstimatedNetBalance()
 
-	c.JSON(http.StatusOK, gin.H{"netBalance": netBalance, "estimatedBalance": estimatedBalance})
+	c.JSON(http.StatusOK, gin.H{"current": current, "estimated": estimated})
 }

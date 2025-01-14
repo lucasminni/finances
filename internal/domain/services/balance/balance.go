@@ -5,8 +5,8 @@ import (
 	"finances/internal/domain/services/income"
 )
 
-func GetNetBalance() float64 {
-	debtTotal := debt.GetTotalOutstandingDebtValue()
+func GetCurrentBalance() float64 {
+	debtTotal := debt.GetTotalPaidDebtValue()
 	incomeTotal := income.GetTotalIncomeValue()
 
 	return incomeTotal - debtTotal
