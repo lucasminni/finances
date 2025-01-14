@@ -1,11 +1,9 @@
 Ideias
 
-- No endpoint de balance, trazer balance líquido juntamente com o estimado
-
 Review do Raul
 
 1 - Arrumar o start do servidor http pra aceitar coisas como TLS, porta, prefixo de rotas via variável de ambiente
 2 - Ajustar o health-check para fazer um ping no banco pra tu ter certeza que o banco ta up e com a conexao 0 bala
 3 - Ajustar as envs para serem carregadas no Load da aplicaçao e nao deixar essa responsabilidade dentro de modulos com o do DB
 4 - Adicionar uma env para ligar/desligar o migrate pra nao rodar migration toda vez que a APP startar
-5- auto swag init
+5-  Configurar makefile (auto swag init)
