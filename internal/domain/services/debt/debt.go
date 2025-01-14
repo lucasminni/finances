@@ -8,8 +8,8 @@ import (
 	uuid "github.com/satori/go.uuid"
 )
 
-func GetDebts() []debt.Debt {
-	debts := db.GetDebts(nil)
+func GetDebts(overdue *bool) []debt.Debt {
+	debts := db.GetDebts(overdue)
 
 	debts = db.UpdateOverdueDebt(debts)
 
@@ -89,8 +89,7 @@ func UpdatePaymentStatus(id string, status bool) (*debt.Debt, error) {
 	}
 }
 
-func GetTotalDebtValue() float64 {
-
+func GetTotalOutstandingDebtValue() float64 {
 	var totalDebtValue float64
 
 	debts, _ := db.GetOutStandingDebts()
@@ -98,5 +97,17 @@ func GetTotalDebtValue() float64 {
 	for _, debt := range debts {
 		totalDebtValue += *debt.Value
 	}
+	return totalDebtValue
+}
+
+func GetTotalDebt() float64 {
+	var totalDebtValue float64
+
+	debts := db.GetDebts(nil)
+
+	for _, debt := range debts {
+		totalDebtValue += *debt.Value
+	}
+
 	return totalDebtValue
 }

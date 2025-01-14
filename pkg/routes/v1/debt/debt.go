@@ -4,7 +4,6 @@ import (
 	model "finances/internal/domain/models/debt"
 	schema "finances/internal/domain/schemas/debt"
 	service "finances/internal/domain/services/debt"
-	"finances/internal/infra/db/repositories/debt"
 	"log"
 	"net/http"
 	"strconv"
@@ -48,7 +47,7 @@ func list(c *gin.Context) {
 		overdue = &parsedOverdue
 	}
 
-	debts := debt.GetDebts(overdue)
+	debts := service.GetDebts(overdue)
 
 	c.JSON(http.StatusOK, gin.H{"debts": debts})
 }

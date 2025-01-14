@@ -1,14 +1,13 @@
 package routes
 
 import (
-	"finances/internal/domain/services/debt"
-	"finances/internal/domain/services/income"
+	"finances/internal/domain/services/balance"
 	"github.com/gin-gonic/gin"
 	"net/http"
 )
 
 func Register(r *gin.RouterGroup) {
-	r.GET("/balance", balance)
+	r.GET("/balance", calculate)
 }
 
 // @Summary      Show balance
@@ -20,8 +19,9 @@ func Register(r *gin.RouterGroup) {
 // @Failure      404
 // @Failure      500
 // @Router       /balance [get]
-func balance(c *gin.Context) {
-	balance := income.GetTotalIncomeValue() - debt.GetTotalDebtValue()
+func calculate(c *gin.Context) {
+	netBalance := balance.GetNetBalance()
+	estimatedBalance := balance.GetEstimatedNetBalance()
 
-	c.JSON(http.StatusOK, gin.H{"balance": balance})
+	c.JSON(http.StatusOK, gin.H{"netBalance": netBalance, "estimatedBalance": estimatedBalance})
 }
