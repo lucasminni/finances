@@ -55,5 +55,15 @@ func ConnectDatabase() {
 		SQLConnector.Debug()
 		log.Println("Debug mode on!")
 	}
+	
+}
 
+func CheckDatabase() bool {
+	db, _ := SQLConnector.DB()
+	err := db.Ping()
+
+	if err != nil {
+		return false
+	}
+	return true
 }

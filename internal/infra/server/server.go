@@ -3,6 +3,8 @@ package server
 import (
 	"finances/pkg/routes"
 	v1 "finances/pkg/routes/v1"
+	"fmt"
+	"os"
 
 	"github.com/gin-gonic/gin"
 )
@@ -14,5 +16,7 @@ func StartServer() {
 	routes.Grouper(r)
 	routes.Docs(r)
 
-	r.Run(":8080")
+	serverPort := os.Getenv("SERVER_PORT")
+
+	r.Run(fmt.Sprintf(":%s", serverPort))
 }
