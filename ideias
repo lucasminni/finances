@@ -2,8 +2,6 @@ Ideias
 
 Review do Raul
 
-1 - Arrumar o start do servidor http pra aceitar coisas como TLS, porta, prefixo de rotas via variável de ambiente
-
 3 - Ajustar as envs para serem carregadas no Load da aplicaçao e nao deixar essa responsabilidade dentro de modulos com o do DB
 https://gitlab.ecsbr.net/ecs/core/ecs-core-noah/-/blob/main/internal/infra/settings/env.go
 https://gitlab.ecsbr.net/ecs/core/ecs-core-noah/-/blame/main/internal/infra/starter/starter.go#L52
