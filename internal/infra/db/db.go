@@ -38,7 +38,7 @@ func ConnectDatabase() {
 		log.Println("Connected to database!")
 	}
 
-	if os.Getenv("AUTOMIGRATE") == "true" {
+	if os.Getenv("DB_AUTOMIGRATE") == "true" {
 		log.Println("Starting AutoMigrate...")
 		err = SQLConnector.AutoMigrate(
 			&debt.Debt{},
@@ -51,7 +51,7 @@ func ConnectDatabase() {
 		}
 	}
 
-	if os.Getenv("DEBUG") == "true" {
+	if os.Getenv("DB_DEBUG_MODE") == "true" {
 		SQLConnector.Debug()
 		log.Println("Debug mode on!")
 	}
