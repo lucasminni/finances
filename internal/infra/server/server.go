@@ -2,7 +2,6 @@ package server
 
 import (
 	"finances/pkg/routes"
-	v1 "finances/pkg/routes/v1"
 	"fmt"
 	"os"
 
@@ -12,7 +11,6 @@ import (
 func StartServer() {
 	r := gin.Default()
 
-	v1.Check(r)
 	routes.Grouper(r)
 	routes.Docs(r)
 

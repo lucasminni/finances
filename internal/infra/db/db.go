@@ -55,7 +55,7 @@ func ConnectDatabase() {
 		SQLConnector.Debug()
 		log.Println("Debug mode on!")
 	}
-	
+
 }
 
 func CheckDatabase() bool {
