@@ -6,5 +6,7 @@ Review do Raul
 https://gitlab.ecsbr.net/ecs/core/ecs-core-noah/-/blob/main/internal/infra/settings/env.go
 https://gitlab.ecsbr.net/ecs/core/ecs-core-noah/-/blame/main/internal/infra/starter/starter.go#L52
 
+4- fazer alguns testes unitarios
+5- ajeitar as structs de response no sueguer
 
 5-  Configurar makefile (auto swag init)

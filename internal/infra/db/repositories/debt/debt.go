@@ -95,6 +95,10 @@ func DeleteDebtByID(id string) error {
 func GetPaidDebts() ([]debt.Debt, error) {
 	var debts []debt.Debt
 
+	if db.SQLConnector == nil {
+		log.Println("db.SQLConnector is nil")
+	}
+
 	query := db.SQLConnector.Where("paid = ?", true).Find(&debts)
 
 	if query.Error != nil {

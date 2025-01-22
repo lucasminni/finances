@@ -3,32 +3,35 @@ package db
 import (
 	"finances/internal/domain/models/debt"
 	"finances/internal/domain/models/income"
+	"finances/internal/infra/settings"
 	"fmt"
-	"log"
-	"os"
-
-	"github.com/joho/godotenv"
 	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
+	"log"
 )
 
 var SQLConnector *gorm.DB
 
 func ConnectDatabase() {
+	var err error
 
-	err := godotenv.Load()
-	if err != nil {
-		log.Fatalf("Failed loading .env file: %v", err)
-	}
+	host := settings.GetEnvs().DatabaseHost
+	user := settings.GetEnvs().DatabaseUser
+	password := settings.GetEnvs().DatabasePassword
+	name := settings.GetEnvs().DatabaseName
+	port := settings.GetEnvs().DatabasePort
+	ssl := settings.GetEnvs().DatabaseSSL
+	automigrate := settings.GetEnvs().DatabaseAutoMigrate
+	debug := settings.GetEnvs().DatabaseDebug
 
-	dbHost := os.Getenv("DB_HOST")
-	dbUser := os.Getenv("DB_USER")
-	dbPassword := os.Getenv("DB_PASSWORD")
-	dbName := os.Getenv("DB_NAME")
-	dbPort := os.Getenv("DB_PORT")
-	dbSSLMode := os.Getenv("DB_SSLMODE")
-
-	dsn := fmt.Sprintf("host=%s user=%s password=%s dbname=%s port=%s sslmode=%s", dbHost, dbUser, dbPassword, dbName, dbPort, dbSSLMode)
+	dsn := fmt.Sprintf(
+		"host=%s user=%s password=%s dbname=%s port=%s sslmode=%s",
+		host,
+		user,
+		password,
+		name,
+		port,
+		ssl)
 
 	SQLConnector, err = gorm.Open(postgres.Open(dsn), &gorm.Config{})
 
@@ -38,7 +41,7 @@ func ConnectDatabase() {
 		log.Println("Connected to database!")
 	}
 
-	if os.Getenv("DB_AUTOMIGRATE") == "true" {
+	if automigrate == "true" {
 		log.Println("Starting AutoMigrate...")
 		err = SQLConnector.AutoMigrate(
 			&debt.Debt{},
@@ -51,11 +54,10 @@ func ConnectDatabase() {
 		}
 	}
 
-	if os.Getenv("DB_DEBUG_MODE") == "true" {
+	if debug == "true" {
 		SQLConnector.Debug()
 		log.Println("Debug mode on!")
 	}
-
 }
 
 func CheckDatabase() bool {
