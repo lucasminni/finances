@@ -1,5 +1,6 @@
-docker-up:
+up:
+	swag init
 	@docker compose up -d && sleep 3 && docker ps -a
 
-docker-down:
+down:
 	@docker compose down
