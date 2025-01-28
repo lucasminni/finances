@@ -3,7 +3,7 @@ package routes
 import (
 	model "finances/internal/domain/models/debt"
 	schema "finances/internal/domain/schemas/debt"
-	service "finances/internal/domain/services/debt"
+	"finances/internal/domain/services/debt"
 	"log"
 	"net/http"
 	"strconv"
@@ -18,6 +18,8 @@ func Register(r *gin.RouterGroup) {
 	r.PUT("/debt", update)
 	r.POST("/debt/payment/", pay)
 }
+
+var d debt.Debt
 
 // @Summary      Show debts
 // @Description  Lists all debts
@@ -47,7 +49,7 @@ func list(c *gin.Context) {
 		overdue = &parsedOverdue
 	}
 
-	debts := service.GetDebts(overdue)
+	debts := d.GetDebts(overdue)
 
 	c.JSON(http.StatusOK, gin.H{"debts": debts})
 }
@@ -73,7 +75,7 @@ func create(c *gin.Context) {
 		log.Panic("Binding JSON error - " + err.Error())
 	}
 
-	debt, err := service.CreateDebt(*json)
+	debt, err := d.CreateDebt(*json)
 
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{"error": "Inserting debt error - " + err.Error()})
@@ -105,7 +107,7 @@ func update(c *gin.Context) {
 		log.Panic("Binding JSON error - " + err.Error())
 	}
 
-	debt, err := service.UpdateDebt(*json)
+	debt, err := d.UpdateDebt(*json)
 
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{"error": "Updating debt error - " + err.Error()})
@@ -142,7 +144,7 @@ func delete(c *gin.Context) {
 		log.Panic("Binding URI error - " + err.Error())
 	}
 
-	err = service.DeleteDebt(uri)
+	err = d.DeleteDebt(uri)
 
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{"error": "Deleting debt error - " + err.Error()})
@@ -174,7 +176,7 @@ func pay(c *gin.Context) {
 		log.Panic("Binding URI error - " + err.Error())
 	}
 
-	debt, err := service.UpdatePaymentStatus(json.ID.String(), json.Paid)
+	debt, err := d.UpdatePaymentStatus(json.ID.String(), json.Paid)
 
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{"error": "Update debt error - " + err.Error()})

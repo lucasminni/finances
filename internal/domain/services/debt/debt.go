@@ -8,7 +8,10 @@ import (
 	uuid "github.com/satori/go.uuid"
 )
 
-func GetDebts(overdue *bool) []debt.Debt {
+type Debt struct {
+}
+
+func (d *Debt) GetDebts(overdue *bool) []debt.Debt {
 	debts := db.GetDebts(overdue)
 
 	debts = db.UpdateOverdueDebt(debts)
@@ -16,7 +19,7 @@ func GetDebts(overdue *bool) []debt.Debt {
 	return debts
 }
 
-func CreateDebt(debt debt.Debt) (*debt.Debt, error) {
+func (d *Debt) CreateDebt(debt debt.Debt) (*debt.Debt, error) {
 	debt.ID = uuid.NewV4()
 	debt.Overdue = debt.SetOverdue()
 
@@ -29,7 +32,7 @@ func CreateDebt(debt debt.Debt) (*debt.Debt, error) {
 	return &debt, nil
 }
 
-func UpdateDebt(debt debt.Debt) (*debt.Debt, error) {
+func (d *Debt) UpdateDebt(debt debt.Debt) (*debt.Debt, error) {
 	debt.Overdue = debt.SetOverdue()
 
 	err := db.UpdateDebt(debt)
@@ -43,7 +46,7 @@ func UpdateDebt(debt debt.Debt) (*debt.Debt, error) {
 	return result, nil
 }
 
-func DeleteDebt(id string) error {
+func (d *Debt) DeleteDebt(id string) error {
 	err := db.DeleteDebtByID(id)
 
 	if err != nil {
@@ -53,7 +56,7 @@ func DeleteDebt(id string) error {
 	return nil
 }
 
-func UpdatePaymentStatus(id string, status bool) (*debt.Debt, error) {
+func (d *Debt) UpdatePaymentStatus(id string, status bool) (*debt.Debt, error) {
 	debt, err := db.GetDebtById(id)
 
 	if err != nil {
@@ -89,7 +92,7 @@ func UpdatePaymentStatus(id string, status bool) (*debt.Debt, error) {
 	}
 }
 
-func GetTotalPaidDebtValue() float64 {
+func (d *Debt) GetTotalPaidDebtValue() float64 {
 	var totalDebtValue float64
 
 	debts, _ := db.GetPaidDebts()
@@ -100,7 +103,7 @@ func GetTotalPaidDebtValue() float64 {
 	return totalDebtValue
 }
 
-func GetTotalDebt() float64 {
+func (d *Debt) GetTotalDebtValue() float64 {
 	var totalDebtValue float64
 
 	debts := db.GetDebts(nil)
