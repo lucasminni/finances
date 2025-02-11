@@ -1,8 +1,8 @@
-Ideias
+TO DOs
 
-Review do Raul
+-> Implementar testes unitários
 
-4- fazer testes unitarios
-5- ajeitar as structs de response no sueguer
+-> Ajeitar as structs de response no swagger
 
-5-  Configurar makefile (auto swag init)
+-> Separar o update de debts em overdue do get
+

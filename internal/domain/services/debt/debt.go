@@ -12,16 +12,11 @@ type Debt struct {
 }
 
 func (d *Debt) GetDebts(overdue *bool) []debt.Debt {
-	debts := db.GetDebts(overdue)
-
-	debts = db.UpdateOverdueDebt(debts)
-
-	return debts
+	return db.GetDebts(overdue)
 }
 
 func (d *Debt) CreateDebt(debt debt.Debt) (*debt.Debt, error) {
 	debt.ID = uuid.NewV4()
-	debt.Overdue = debt.SetOverdue()
 
 	err := db.InsertDebt(debt)
 
