@@ -1,8 +1,9 @@
 package settings
 
 import (
-	"github.com/caarlos0/env/v7"
 	"log"
+
+	"github.com/caarlos0/env/v7"
 )
 
 var envs Environment

@@ -4,8 +4,9 @@ import (
 	"errors"
 	"finances/internal/domain/models/debt"
 	"finances/internal/infra/db"
-	"github.com/dromara/carbon/v2"
 	"log"
+
+	"github.com/dromara/carbon/v2"
 )
 
 func InsertDebt(debt debt.Debt) error {
@@ -23,24 +24,26 @@ func GetDebts(overdue *bool) []debt.Debt {
 	var debts []debt.Debt
 	today := carbon.Now().ToDateString()
 
-	switch *overdue {
-	case true:
-		query := db.SQLConnector.Find(&debts, "dueDate < ?", today)
+	if overdue != nil {
+		switch *overdue {
+		case true:
+			query := db.SQLConnector.Find(&debts, "due_date < ?", today)
 
-		if query.Error != nil {
-			log.Panic(query.Error)
-			return nil
+			if query.Error != nil {
+				log.Panic(query.Error)
+				return nil
+			}
+
+		case false:
+			query := db.SQLConnector.Find(&debts, "due_date > ?", today)
+
+			if query.Error != nil {
+				log.Panic(query.Error)
+				return nil
+			}
 		}
 
-	case false:
-		query := db.SQLConnector.Find(&debts, "dueDate > ?", today)
-
-		if query.Error != nil {
-			log.Panic(query.Error)
-			return nil
-		}
-
-	default:
+	} else {
 		query := db.SQLConnector.Find(&debts)
 
 		if query.Error != nil {
@@ -60,7 +63,6 @@ func GetDebtById(id string) (*debt.Debt, error) {
 		log.Panic(query.Error)
 		return nil, query.Error
 	}
-
 	return &result, nil
 }
 

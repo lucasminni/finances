@@ -2,8 +2,9 @@ package routes
 
 import (
 	"finances/internal/domain/services/balance"
-	"github.com/gin-gonic/gin"
 	"net/http"
+
+	"github.com/gin-gonic/gin"
 )
 
 func Register(r *gin.RouterGroup) {
