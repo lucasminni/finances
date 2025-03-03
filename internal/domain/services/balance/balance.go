@@ -9,6 +9,7 @@ type Balance struct {
 }
 
 var d debt.Debt
+var i income.Income
 
 func (b *Balance) GetCurrentBalance(incomeTotal float64, totalPaidDebts float64) float64 {
 	return incomeTotal - totalPaidDebts
@@ -23,7 +24,7 @@ func (b *Balance) GetTotalDebt() float64 {
 }
 
 func (b *Balance) GetTotalIncome() float64 {
-	return income.GetTotalIncomeValue()
+	return i.GetTotalIncomeValue()
 }
 
 func (b *Balance) GetTotalPaidDebts() float64 {

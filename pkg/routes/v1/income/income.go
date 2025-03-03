@@ -2,7 +2,7 @@ package routes
 
 import (
 	model "finances/internal/domain/models/income"
-	service "finances/internal/domain/services/income"
+	"finances/internal/domain/services/income"
 	"log"
 	"net/http"
 
@@ -16,6 +16,8 @@ func Register(r *gin.RouterGroup) {
 	r.PUT("/income", update)
 }
 
+var i income.Income
+
 // @Summary      Show incomes
 // @Description  Lists all incomes
 // @Tags         incomes
@@ -27,7 +29,7 @@ func Register(r *gin.RouterGroup) {
 // @Failure      500
 // @Router       /income [get]
 func list(c *gin.Context) {
-	incomes := service.GetIncomes()
+	incomes := i.GetIncomes()
 
 	c.JSON(http.StatusOK, gin.H{"incomes": incomes})
 }
@@ -53,7 +55,7 @@ func create(c *gin.Context) {
 		log.Panic("Binding JSON error - " + err.Error())
 	}
 
-	income, err := service.CreateIncome(*json)
+	income, err := i.CreateIncome(*json)
 
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{"error": "Inserting income error - " + err.Error()})
@@ -85,7 +87,7 @@ func update(c *gin.Context) {
 		log.Panic("Binding JSON error - " + err.Error())
 	}
 
-	income, err := service.UpdateIncome(*json)
+	income, err := i.UpdateIncome(*json)
 
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{"error": "Updating income error - " + err.Error()})
@@ -121,7 +123,7 @@ func delete(c *gin.Context) {
 		log.Panic("Binding URI error - " + err.Error())
 	}
 
-	err = service.DeleteIncome(uri)
+	err = i.DeleteIncome(uri)
 
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{"error": "Deleting income error - " + err.Error()})

@@ -3,15 +3,19 @@ package income
 import (
 	"finances/internal/domain/models/income"
 	db "finances/internal/infra/db/repositories/income"
-	uuid "github.com/satori/go.uuid"
 	"log"
+
+	uuid "github.com/satori/go.uuid"
 )
 
-func GetIncomes() []income.Income {
+type Income struct {
+}
+
+func (i *Income) GetIncomes() []income.Income {
 	return db.GetIncomes()
 }
 
-func CreateIncome(income income.Income) (*income.Income, error) {
+func (i *Income) CreateIncome(income income.Income) (*income.Income, error) {
 	income.ID = uuid.NewV4()
 
 	err := db.InsertIncome(income)
@@ -23,7 +27,7 @@ func CreateIncome(income income.Income) (*income.Income, error) {
 	return &income, nil
 }
 
-func UpdateIncome(income income.Income) (*income.Income, error) {
+func (i *Income) UpdateIncome(income income.Income) (*income.Income, error) {
 	err := db.UpdateIncome(income)
 
 	if err != nil {
@@ -41,7 +45,7 @@ func UpdateIncome(income income.Income) (*income.Income, error) {
 	return result, nil
 }
 
-func DeleteIncome(id string) error {
+func (i *Income) DeleteIncome(id string) error {
 	err := db.DeleteIncomeByID(id)
 
 	if err != nil {
@@ -51,7 +55,7 @@ func DeleteIncome(id string) error {
 	return nil
 }
 
-func GetTotalIncomeValue() float64 {
+func (i *Income) GetTotalIncomeValue() float64 {
 	var totalIncomeValue float64
 
 	incomes := db.GetIncomes()
