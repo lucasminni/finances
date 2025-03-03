@@ -28,7 +28,7 @@ func (d *Debt) CreateDebt(debt debt.Debt) (*debt.Debt, error) {
 }
 
 func (d *Debt) UpdateDebt(debt debt.Debt) (*debt.Debt, error) {
-	debt.Overdue = debt.SetOverdue()
+	debt.SetOverdue()
 
 	err := db.UpdateDebt(debt)
 

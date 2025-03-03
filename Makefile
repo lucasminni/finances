@@ -10,3 +10,6 @@ test:
 	@go clean -testcache
 	@go test -coverprofile=coverage.out ./internal/.../
 	@go tool cover -func=coverage.out
+
+start: up
+	@go run main.go

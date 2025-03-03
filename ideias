@@ -1,5 +1,7 @@
 TO DOs
 
+-> Converter funcs em methods no service income.go
+
 -> Implementar testes unitários
 
 -> Ajeitar as structs de response no swagger

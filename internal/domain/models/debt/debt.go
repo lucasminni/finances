@@ -26,10 +26,10 @@ func (d *Debt) SetUnpaid() {
 	d.PaymentDate = carbon.Date{}
 }
 
-func (d *Debt) SetOverdue() bool {
+func (d *Debt) SetOverdue() {
 	if carbon.Now().ToDateString() > d.DueDate.String() {
-		return true
+		d.Overdue = true
+	} else {
+		d.Overdue = false
 	}
-
-	return false
 }

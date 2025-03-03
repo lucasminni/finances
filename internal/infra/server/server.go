@@ -15,18 +15,18 @@ func StartServer() {
 	routes.Grouper(r)
 	routes.Docs(r)
 
-	Port := settings.GetEnvs().HTTPServerPort
+	port := settings.GetEnvs().HTTPServerPort
 	protocol := settings.GetEnvs().HTTPServerProtocol
 	certificate := settings.GetEnvs().HTTPServerTLSCertificate
 	key := settings.GetEnvs().HTTPServerTLSKey
 
 	switch protocol {
 	case "http":
-		if err := r.Run(fmt.Sprintf(":%s", Port)); err != nil {
+		if err := r.Run(fmt.Sprintf(":%s", port)); err != nil {
 			log.Fatal("Error on server start: ", err)
 		}
 	case "https":
-		if err := r.RunTLS(fmt.Sprintf(":%s", Port), certificate, key); err != nil {
+		if err := r.RunTLS(fmt.Sprintf(":%s", port), certificate, key); err != nil {
 			log.Fatal("Error on server start: ", err)
 		}
 	}

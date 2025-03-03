@@ -12,9 +12,13 @@ import (
 )
 
 func Grouper(r *gin.Engine) {
-	group := r.Group("/api")
-	v1 := group.Group("/v1")
-	financialV1.Register(v1.Group("/finances"))
+	api := r.Group("/api")
+	v1 := api.Group("/v1")
+	finances := v1.Group("/finances")
+
+	financialV1.Register(finances)
+	CheckDatabase(api)
+	CheckApp(api)
 }
 
 func Docs(r *gin.Engine) {

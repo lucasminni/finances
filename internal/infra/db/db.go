@@ -5,9 +5,10 @@ import (
 	"finances/internal/domain/models/income"
 	"finances/internal/infra/settings"
 	"fmt"
+	"log"
+
 	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
-	"log"
 )
 
 var SQLConnector *gorm.DB
@@ -50,7 +51,7 @@ func ConnectDatabase() {
 		if err != nil {
 			log.Fatalf("Failed to auto migrate: %v", err)
 		} else {
-			log.Println("Migration complete!")
+			log.Println("Migration completed!")
 		}
 	}
 
@@ -58,6 +59,13 @@ func ConnectDatabase() {
 		SQLConnector.Debug()
 		log.Println("Debug mode on!")
 	}
+
+	if CheckDatabase() {
+		log.Print("Database connection up!")
+	} else {
+		log.Println("Database connection not ok...")
+	}
+
 }
 
 func CheckDatabase() bool {
